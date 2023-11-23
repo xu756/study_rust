@@ -534,7 +534,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "study"
+name = "studyRust"
 version = "0.1.0"
 dependencies = [
  "axum",
