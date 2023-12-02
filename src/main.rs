@@ -6,3 +6,4 @@ mod router;
 async fn main() {
     router::init_router().await;
 }
+
