@@ -11,12 +11,10 @@ struct User {
     name: String,
     age: u8,
 }
-
-// 处理器
-
 // 初始化路由
 pub async fn init_router() {
-    let app = Router::new().route("/", get(handler));
+    let app = Router::new().
+        route("/", get(handler));
 
     // 使用 hyper 在 localhost:8989 上运行服务器
     axum::Server::bind(&"0.0.0.0:8989".parse().unwrap())

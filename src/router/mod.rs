@@ -1,3 +1,4 @@
 // 引入 router.rs
-mod router;
-pub use router::*;
+mod route;
+
+pub use route::init_router;
