@@ -12,11 +12,8 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50e6c633-8439-44ef-b0a3-2156f83c600d" name="更改" comment="更改名字">
+    <list default="true" id="50e6c633-8439-44ef-b0a3-2156f83c600d" name="更改" comment="sql">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/mod.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +183,7 @@
       <workItem from="1701537684830" duration="161000" />
       <workItem from="1701537859868" duration="519000" />
       <workItem from="1701538399501" duration="208000" />
-      <workItem from="1701568633611" duration="8080000" />
+      <workItem from="1701568633611" duration="8161000" />
     </task>
     <task id="LOCAL-00001" summary="idea">
       <option name="closed" value="true" />
@@ -228,7 +225,23 @@
       <option name="project" value="LOCAL" />
       <updated>1701538583794</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="测试">
+      <option name="closed" value="true" />
+      <created>1701624214952</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701624214952</updated>
+    </task>
+    <task id="LOCAL-00007" summary="sql">
+      <option name="closed" value="true" />
+      <created>1701624228016</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1701624228016</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,7 +250,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="idea" />
     <MESSAGE value="更改名字" />
-    <option name="LAST_COMMIT_MESSAGE" value="更改名字" />
+    <MESSAGE value="测试" />
+    <MESSAGE value="sql" />
+    <option name="LAST_COMMIT_MESSAGE" value="sql" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
