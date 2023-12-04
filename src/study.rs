@@ -1,5 +1,4 @@
-use std::fs::File;
-use std::io::{Read, Write};
+use tokio::fs::File;
 
 struct User {
     name: String,
@@ -63,7 +62,8 @@ fn file_create_test() {
     let f = File::create("hello.txt");
     match f {
         Ok(mut file) => {
-            file.write(b"hello world").unwrap();
+            // file.write(b"hello world").unwrap();
+            file.write_all(b"hello world").unwrap();
             println!("create file success");
         }
         Err(err) => {

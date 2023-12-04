@@ -102,9 +102,27 @@
         <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test study::file_open_test" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package study_rust --bin study_rust study::file_open_test -- --exact" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Cargo.Run study_rust" />
+        <item itemvalue="Cargo.Test study::file_open_test" />
         <item itemvalue="Cargo.Test study::file_create_test" />
       </list>
     </recent_temporary>
@@ -132,7 +150,7 @@
       <workItem from="1701537859868" duration="519000" />
       <workItem from="1701538399501" duration="208000" />
       <workItem from="1701568633611" duration="8409000" />
-      <workItem from="1701656959445" duration="1486000" />
+      <workItem from="1701656959445" duration="1924000" />
     </task>
     <task id="LOCAL-00001" summary="idea">
       <option name="closed" value="true" />
@@ -206,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701658603297</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="test">
+      <option name="closed" value="true" />
+      <created>1701659109151</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1701659109151</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
