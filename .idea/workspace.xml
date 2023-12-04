@@ -12,11 +12,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50e6c633-8439-44ef-b0a3-2156f83c600d" name="更改" comment="sql">
-      <change afterPath="$PROJECT_DIR$/src/study.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="50e6c633-8439-44ef-b0a3-2156f83c600d" name="更改" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/study.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/study.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +132,7 @@
       <workItem from="1701537859868" duration="519000" />
       <workItem from="1701538399501" duration="208000" />
       <workItem from="1701568633611" duration="8409000" />
-      <workItem from="1701656959445" duration="985000" />
+      <workItem from="1701656959445" duration="1486000" />
     </task>
     <task id="LOCAL-00001" summary="idea">
       <option name="closed" value="true" />
@@ -199,7 +198,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701624472354</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="test">
+      <option name="closed" value="true" />
+      <created>1701658603297</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1701658603297</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,7 +217,8 @@
     <MESSAGE value="更改名字" />
     <MESSAGE value="测试" />
     <MESSAGE value="sql" />
-    <option name="LAST_COMMIT_MESSAGE" value="sql" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

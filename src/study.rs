@@ -1,8 +1,6 @@
-use std::fs;
 use std::fs::File;
 use std::io::{Read, Write};
 
-#[derive(Debug)]
 struct User {
     name: String,
     age: u8,
@@ -62,7 +60,7 @@ fn file_open_test() {
 
 #[test]
 fn file_create_test() {
-    let f = fs::File::create("hello.txt");
+    let f = File::create("hello.txt");
     match f {
         Ok(mut file) => {
             file.write(b"hello world").unwrap();

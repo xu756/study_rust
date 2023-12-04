@@ -1,9 +1,9 @@
 mod router;
-mod study;
+// mod study;
 use router::init_router;
 
-use std::io::{Read, Write};
 #[tokio::main]
+#[allow(dead_code)]
 async fn main() {
     init_router().await;
 }
