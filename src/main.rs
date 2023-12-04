@@ -2,6 +2,8 @@
 #![allow(unused_variables)]
 mod router;
 mod study;
+mod model;
+
 use router::init_router;
 
 #[tokio::main]

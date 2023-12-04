@@ -13,7 +13,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="50e6c633-8439-44ef-b0a3-2156f83c600d" name="更改" comment="test">
+      <change afterPath="$PROJECT_DIR$/src/model/connect.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/study.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/study.rs" afterDir="false" />
     </list>
@@ -67,9 +70,26 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;language.rust.rustfmt&quot;
   }
 }</component>
-  <component name="RunManager" selected="Cargo.Run study_rust">
+  <component name="RunManager" selected="Cargo.Test model::connect::connect">
     <configuration name="Run study_rust" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
       <option name="command" value="run --package study_rust --bin study_rust" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <option name="emulateTerminal" value="true" />
+      <option name="channel" value="DEFAULT" />
+      <option name="requiredFeatures" value="true" />
+      <option name="allFeatures" value="false" />
+      <option name="withSudo" value="false" />
+      <option name="buildTarget" value="REMOTE" />
+      <option name="backtrace" value="SHORT" />
+      <envs />
+      <option name="isRedirectInput" value="false" />
+      <option name="redirectInputPath" value="" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test model::connect::connect" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="command" value="test --package study_rust --bin study_rust model::connect::connect -- --exact" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <option name="emulateTerminal" value="true" />
       <option name="channel" value="DEFAULT" />
@@ -121,8 +141,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Cargo.Run study_rust" />
+        <item itemvalue="Cargo.Test model::connect::connect" />
         <item itemvalue="Cargo.Test study::file_open_test" />
+        <item itemvalue="Cargo.Run study_rust" />
         <item itemvalue="Cargo.Test study::file_create_test" />
       </list>
     </recent_temporary>
@@ -150,7 +171,7 @@
       <workItem from="1701537859868" duration="519000" />
       <workItem from="1701538399501" duration="208000" />
       <workItem from="1701568633611" duration="8409000" />
-      <workItem from="1701656959445" duration="1924000" />
+      <workItem from="1701656959445" duration="2468000" />
     </task>
     <task id="LOCAL-00001" summary="idea">
       <option name="closed" value="true" />
@@ -232,7 +253,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701659109151</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="test">
+      <option name="closed" value="true" />
+      <created>1701659741011</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1701659741011</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
