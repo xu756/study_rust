@@ -1,8 +1,8 @@
 use axum::Json;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 // 响应结构体
-#[derive(Serialize)]
+#[derive(Serialize, Debug, Deserialize)]
 pub struct Response<T> {
     success: bool,
     err_code: u32,

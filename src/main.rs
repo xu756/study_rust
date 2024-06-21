@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
-use study_rust::router;
 
 use router::route::init_router;
+use study_rust::router;
 
 #[tokio::main]
 async fn main() {
