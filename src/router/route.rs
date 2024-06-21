@@ -1,32 +1,19 @@
-use crate::common::result::{success, Response};
-use axum::{routing::get, Json, Router};
-use serde::{Deserialize, Serialize};
+use axum::Router;
 use std::net::SocketAddr;
+
+use super::index::index_router;
+
 pub async fn init_router() {
-    // 初始化路由
-    let app = Router::new().route("/", get(index_handler));
+    // 创建一个新的路由
+    let app = Router::new()
+        .nest("/api/index", index_router())
+        .nest("/home", index_router());
 
     // 绑定地址并启动服务器
-    let addr = SocketAddr::from(([0, 0, 0, 0], 8989));
-    println!("Server is running on http://{}/", addr);
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
-}
+    let addr: SocketAddr = SocketAddr::from(([0, 0, 0, 0], 8989));
 
-// 结构体定义
-#[derive(Serialize)]
-struct User {
-    name: String,
-    age: u8,
-}
-
-// 路由处理函数
-async fn index_handler() -> Json<Response<User>> {
-    let user = User {
-        name: "Jack".to_string(),
-        age: 18,
-    };
-    success(user)
+    println!("启动web服务在 http://{}/", addr);
+    println!("按下 Ctrl+C 停止服务");
+    let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
+    axum::serve(listener, app).await.unwrap();
 }
