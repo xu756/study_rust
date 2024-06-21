@@ -1,13 +1,11 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
-mod router;
-mod study;
-mod model;
+use study_rust::router;
 
-use router::init_router;
+use router::route::init_router;
 
 #[tokio::main]
-#[allow(dead_code)]
+#[allow(dead_code, unused_imports)]
 async fn main() {
     init_router().await;
 }
