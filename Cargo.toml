@@ -9,3 +9,6 @@ axum="0.7.5"
 tokio = { version = "1.0", features = ["full"] }
 serde_json = "1.0.108"
 serde = { version = "1.0.193", features = ["derive"] }
+xcap = "0.0.10"
+image = "0.25.1"
+active-win-pos-rs = "0.8"

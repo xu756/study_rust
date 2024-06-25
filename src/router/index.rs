@@ -1,11 +1,11 @@
 // indexRouter
 use crate::common::result::{success, Response};
-use axum::{routing::post, Json, Router};
+use axum::{routing::get, Json, Router};
 
 use serde::{Deserialize, Serialize};
 
 pub fn index_router() -> Router {
-    Router::new().route("/", post(index_handler))
+    Router::new().route("/", get(index_handler))
 }
 
 // 路由处理函数

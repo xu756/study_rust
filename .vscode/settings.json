@@ -4,5 +4,8 @@
 		"editor.formatOnSave": true,
 		"editor.formatOnType": true,
 		"editor.defaultFormatter": "rust-lang.rust-analyzer"
-	}
+	},
+	"cSpell.words": [
+		"xcap"
+	]
 }
