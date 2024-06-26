@@ -34,4 +34,6 @@ impl Default for User {
 
 // 测试
 #[tokio::test]
-async fn test_index_handler() {}
+async fn test_index_handler() {
+    print!("test_index_handler")
+}

@@ -1,5 +1,6 @@
-use axum::Router;
 use std::net::SocketAddr;
+
+use axum::Router;
 
 use super::index::index_router;
 
