@@ -12,6 +12,6 @@ mod tests {
     #[test]
     fn test_screen_shot() {
         let image = screen_shot();
-        image.save("shot/test.png").unwrap();
+        image.save("test.png").unwrap();
     }
 }

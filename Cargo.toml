@@ -1,6 +1,7 @@
 [workspace]
 members = [
-  "configs"
+  "configs",
+  "screen"
 ]
 resolver = "2"
 
@@ -21,7 +22,10 @@ image = "0.25.1"
 active-win-pos-rs = "0.8"
 once_cell = "1"
 toml = "0"
-
+scrap= "0"
+ffmpeg-next="7.0.2"
+repng = "0"
+smol ="2.0.0"
 # 计划任务
 delay_timer = "0"
 reqwest = "0"
