@@ -5,7 +5,11 @@
 		"editor.formatOnType": true,
 		"editor.defaultFormatter": "rust-lang.rust-analyzer"
 	},
+	"editor.inlayHints.fontFamily": "Courier New",
+	"editor.inlayHints.fontSize": 11,
+	"rust-analyzer.linkedProjects":["/Users/xu756/开发/rust项目/study_rust/Cargo.toml"],
 	"cSpell.words": [
+		"cfgs",
 		"xcap"
 	]
 }

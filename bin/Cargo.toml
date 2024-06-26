@@ -1,0 +1,9 @@
+[package]
+name = "axum-admin"
+default-run = "axum-admin"
+edition.workspace = true
+publish.workspace = true
+version.workspace = true
+
+[dependencies]
+configs = {path = "../configs"}
