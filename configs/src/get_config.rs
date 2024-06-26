@@ -18,7 +18,7 @@ impl Configs {
         let mut cfg_contents = String::new();
         match file.read_to_string(&mut cfg_contents) {
             Ok(s) => s,
-            Err(e) => panic!("读取配置文件失败，错误信息：{}", e),
+            Err(e) => panic!("读取配置文件失败，错误 信息：{}", e),
         };
         toml::from_str(&cfg_contents).expect("解析配置文件错误")
     }
