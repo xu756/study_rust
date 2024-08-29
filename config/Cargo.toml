@@ -1,8 +1,9 @@
 [package]
-name = "bin"
+name = "config"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
+
 [dependencies]
-router = { path = "../router" }
-tokio = {workspace = true}
+once_cell = "1.19.0"
+toml = "0.8.19"
