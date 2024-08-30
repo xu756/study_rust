@@ -1,7 +1,6 @@
-use std::net::SocketAddr;
-
-use axum::Router;
 use axum::routing::get;
+use axum::Router;
+use std::net::SocketAddr;
 
 mod index;
 

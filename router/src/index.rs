@@ -1,10 +1,10 @@
+use axum::extract::rejection::JsonRejection;
+use axum::routing::get;
 use axum::Json;
 use axum::Router;
-use axum::routing::get;
+use common::result::{error, success};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
-
-use common::result::{error, success};
 
 pub fn index_router() -> Router {
     Router::new().route("/", get(index_handler))
@@ -12,11 +12,15 @@ pub fn index_router() -> Router {
 
 
 // 路由处理函数
-async fn index_handler(user: Option<Json<Value>>) -> Json<Value> {
-    if let Some(user) = user {
-        success(user)
-    } else {
-        error(1001, "user not found")
+async fn index_handler(payload: Result<Json<User>, JsonRejection>) -> Json<Value> {
+    match payload {
+        Ok(payload) => {
+            // 提取成功
+            success(payload.0)
+        }
+        Err(err) => {
+            error(err.to_string().as_str())
+        }
     }
 }
 
