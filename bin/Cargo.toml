@@ -5,4 +5,5 @@ edition.workspace = true
 authors.workspace = true
 [dependencies]
 router = { path = "../router" }
-tokio = {workspace = true}
+tokio = { workspace = true }
+config = { path = "../config" }

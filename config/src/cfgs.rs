@@ -1,6 +1,5 @@
 use serde::Deserialize;
 
-mod cfgs;
 
 /// 配置文件
 #[derive(Debug, Deserialize)]
@@ -19,8 +18,6 @@ pub struct Configs {
     pub jwt: Jwt,
     /// 日志配置
     pub log: Log,
-    /// skytable
-    pub skytable: SkyTable,
 }
 
 /// server 配置文件
@@ -29,6 +26,7 @@ pub struct Server {
     /// 服务器名称
     pub name: String,
     /// 服务器(IP地址:端口)
+    pub version: String,
     /// `0.0.0.0:3000`
     pub address: String,
     /// 服务器ssl
@@ -81,7 +79,7 @@ pub struct Jwt {
     /// JWT 密钥
     pub jwt_secret: String,
     /// JWT 过期时间
-    pub jwt_exp: i64,
+    pub jwt_exp: u64,
 }
 
 /// 日志配置
@@ -102,13 +100,4 @@ pub struct Log {
 pub struct Database {
     /// 数据库连接
     pub link: String,
-}
-
-#[derive(Debug, Deserialize)]
-pub struct SkyTable {
-    /// server address
-    pub server: String,
-
-    /// server port
-    pub port: u16,
 }

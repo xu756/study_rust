@@ -5,5 +5,7 @@ edition.workspace = true
 authors.workspace = true
 
 [dependencies]
-once_cell = "1.19.0"
-toml = "0.8.19"
+once_cell = { workspace = true }
+toml = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+dotenv = { workspace = true }

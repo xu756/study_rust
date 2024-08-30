@@ -2,7 +2,7 @@
 name = "axum-admin"
 version = "0.1.0"
 # 服务器ip 端口
-address = "0.0.0.0:3000"
+address = "127.0.0.1:3000"
 # 服务器ssl
 ssl = false
 # 响应数据压缩
@@ -13,9 +13,6 @@ cache_time = 600
 cache_method = 1  # 0: memory  1: skytable
 # api前缀
 api_prefix = "/api"
-[skytable]
-server = "127.0.0.1"
-port = 2003
 [web]
 dir = "data/_web"
 index = "index.html"
@@ -40,7 +37,7 @@ user_agent_parser = "config/regexes.yaml"
 [jwt]
 # 单位 分钟
 jwt_exp = 14400 # 10天 14400
-jwt_secret = 'secret'
+jwt_secret = '4tfLEJpyNVMkh59ZNf222Cr'
 [database]
 # link = 'mysql://root:password@192.168.1.11:13306/db'
 # link = 'mysql://root:password@127.0.0.1:13306/db'

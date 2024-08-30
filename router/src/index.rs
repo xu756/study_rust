@@ -2,7 +2,7 @@ use axum::extract::rejection::JsonRejection;
 use axum::routing::get;
 use axum::Json;
 use axum::Router;
-use common::result::{error, success};
+use common::result::*;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
