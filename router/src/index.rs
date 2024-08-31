@@ -19,7 +19,7 @@ async fn index_handler(payload: Result<Json<User>, JsonRejection>) -> Json<Value
             success(payload.0)
         }
         Err(err) => {
-            error(err.to_string().as_str())
+            param_error(err.to_string().as_str())
         }
     }
 }

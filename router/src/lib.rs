@@ -9,6 +9,7 @@ pub async fn init_router() {
     let app = Router::new()
         .route("/api/", get(root))
         .nest("/api/index", index::index_router());
+    let app = app.fallback(not_found);
     let addr: SocketAddr = config::CFG.server.address.parse().unwrap();
     println!("启动web服务在 http://{}/", addr);
     println!("按下 Ctrl+C 停止服务");
@@ -16,7 +17,11 @@ pub async fn init_router() {
     axum::serve(listener, app).await.unwrap();
 }
 
-
 async fn root() -> &'static str {
     "Hello, World!"
+}
+
+// not_found
+async fn not_found() -> &'static str {
+    "404"
 }

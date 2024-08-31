@@ -23,7 +23,16 @@ pub fn success<T: Serialize>(data: T) -> Json<Value> {
     };
     Json(json!(res))
 }
-
+// param_error
+pub fn param_error(msg: &str) -> Json<Value> {
+    let res = Response {
+        success: false,
+        err_code: error_code_to_int(&ResultError::ParamError),
+        err_msg: msg.to_string(),
+        data: "",
+    };
+    Json(json!(res))
+}
 
 // 失败响应
 pub fn error(error: CodeError) -> Json<Value> {
