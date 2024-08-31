@@ -37,7 +37,7 @@ user_agent_parser = "config/regexes.yaml"
 [jwt]
 # 单位 分钟
 jwt_exp = 14400 # 10天 14400
-jwt_secret = '4tfLEJpyNVMkh59ZNf222Cr'
+jwt_secret = '4tfLEJpyNVMkh59ZNfCr'
 [database]
 # link = 'mysql://root:password@192.168.1.11:13306/db'
 # link = 'mysql://root:password@127.0.0.1:13306/db'
