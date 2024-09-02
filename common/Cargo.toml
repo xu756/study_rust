@@ -9,6 +9,5 @@ axum = { workspace = true }
 serde_json = { workspace = true }
 config = { path = "../config" }
 jsonwebtoken = { workspace = true }
-sea-orm = { workspace = true }
 log = "0.4.22"
 tokio = "1.39.3"
