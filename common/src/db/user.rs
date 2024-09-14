@@ -3,8 +3,7 @@ use crate::error::{db_error, CodeError};
 use crate::model::users;
 use sea_orm::sqlx::types::chrono;
 use sea_orm::ActiveValue::Set;
-use sea_orm::{ActiveModelTrait, EntityTrait, IntoActiveModel};
-
+use sea_orm::{ActiveModelTrait, EntityTrait, IntoActiveModel, SqlErr};
 
 impl DbClient {
     pub async fn add_user(&self, user_name: String) -> Result<bool, CodeError> {
@@ -14,14 +13,12 @@ impl DbClient {
             created_at: Set(chrono::Local::now().timestamp()),
             ..Default::default()
         };
-        match user.insert(&self.client).await {
-            Ok(res) => {
-                println!("add user success: {:?}", res);
-                Ok(true)
+        match user.insert(&self.client).await.expect_err("add user error").sql_err() {
+            Some(SqlErr::UniqueConstraintViolation(msg)) => {
+                Err(db_error(&format!("user already exists,{:?}", msg)))
             }
-            Err(error) => {
-                // match e {  }
-                Err(db_error(&format!("add user error: {:?}", error)))
+            _ => {
+                Ok(true)
             }
         }
     }
