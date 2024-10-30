@@ -36,7 +36,6 @@ impl Configs {
 #[cfg(test)]
 mod tests {
     use super::*;
-
     #[test]
     fn test_get_config() {
         let cfg = Configs::init();

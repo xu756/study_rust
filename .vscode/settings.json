@@ -1,6 +1,10 @@
 {
     "cSpell.words": [
+        "cfgs",
         "chrono",
+        "dotenv",
         "sqlx"
-    ]
+    ],
+    "deepscan.ignoreConfirmWarning": true,
+    "rust-analyzer.testExplorer": false
 }
