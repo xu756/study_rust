@@ -13,7 +13,7 @@ impl DbClient {
             created_at: Set(chrono::Local::now().timestamp()),
             ..Default::default()
         };
-        match user.insert(&self.client).await.expect_err("add user error").sql_err() {
+        match user.insert(&self.client).await.expect_err("Unique Constraint Violated:mobile ").sql_err() {
             Some(SqlErr::UniqueConstraintViolation(msg)) => {
                 Err(db_error(&format!("user already exists,{:?}", msg)))
             }
