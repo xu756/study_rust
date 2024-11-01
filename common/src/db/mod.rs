@@ -1,11 +1,11 @@
 mod user;
 
 use crate::error::{db_error, CodeError};
-use sea_orm::{ConnectOptions, Database, DatabaseConnection};
+use sea_orm::{ConnectOptions, Database, DbConn};
 use std::time::Duration;
 
 pub struct DbClient {
-    pub client: DatabaseConnection,
+    pub db: DbConn,
 }
 
 
@@ -29,7 +29,7 @@ impl DbClient {
         match db {
             Ok(c) => {
                 Ok(DbClient {
-                    client: c
+                    db: c,
                 })
             }
             Err(e) => {
@@ -42,7 +42,7 @@ impl DbClient {
      * 关闭数据库连接
      */
     pub async fn close(self) -> Result<bool, CodeError> {
-        match self.client.close().await {
+        match self.db.close().await {
             Ok(_) => {
                 Ok(true)
             }
