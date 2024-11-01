@@ -11,4 +11,5 @@ config = { path = "../config" }
 jsonwebtoken = { workspace = true }
 log = { workspace = true }
 tokio = { workspace = true }
-sea-orm = { workspace = true }
+diesel = {workspace = true}
+chrono = {workspace = true}

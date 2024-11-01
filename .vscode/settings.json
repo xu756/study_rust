@@ -1,8 +1,11 @@
 {
     "cSpell.words": [
+        "Bytea",
         "cfgs",
         "chrono",
         "dotenv",
+        "nextval",
+        "regclass",
         "sqlx"
     ],
     "deepscan.ignoreConfirmWarning": true,
