@@ -1,7 +1,7 @@
 [workspace]
 members = [
-    "bin",
-    "common", "config", "router",
+    "app",
+    "common", "config",
 ]
 resolver = "2"
 [workspace.package]
