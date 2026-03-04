@@ -9,3 +9,4 @@ once_cell = { workspace = true }
 toml = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 dotenv = { workspace = true }
+envy = { workspace = true }

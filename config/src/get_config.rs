@@ -1,44 +1,39 @@
-use super::cfgs::Configs;
+use serde::Deserialize;
 use dotenv::dotenv;
-use once_cell::sync::Lazy;
-use std::env;
-use std::{fs::File, io::Read};
 
-//  只要是配置文件中的配置项，都可以通过这个结构体来获取，
-// 只要读取一次值后保存到内存，一直可供使用
-pub static CFG: Lazy<Configs> = Lazy::new(Configs::init);
+#[derive(Debug, Deserialize)]
+struct Config {
+    // 会读取 DATABASE_URL
+    database_url: String,
 
-impl Configs {
-    pub fn init() -> Self {
-        dotenv().ok();
-        match env::var("CONFIG_PATH") {
-            Ok(path) => {
-                let mut file = match File::open(&path) {
-                    Ok(f) => f,
-                    Err(e) => panic!("不存在配置文件：{}，错误信息：{}", path, e),
-                };
-                let mut cfg_contents = String::new();
-                match file.read_to_string(&mut cfg_contents) {
-                    Ok(s) => s,
-                    Err(e) => panic!("读取配置文件失败，错误 信息：{}", e),
-                };
-                toml::from_str(&cfg_contents).expect("解析配置文件错误")
-            }
-            Err(e) => panic!("读取环境变量失败，错误信息：{}", e),
-        }
-    }
+    // 会读取 PORT；如果缺失，用默认值
+    #[serde(default = "default_port")]
+    port: u16,
 
-    pub fn get_config() -> Configs {
-        Configs::init()
-    }
+    // 会读取 RUST_LOG；缺失则 None
+    rust_log: Option<String>,
 }
 
+fn default_port() -> u16 { 8080 }
+
+fn load_config() -> Result<Config, Box<dyn std::error::Error>> {
+    // 从当前目录加载 .env（找不到也不报错就用 dotenvy::dotenv().ok()）
+    dotenv::dotenv().ok();
+
+    // 从环境变量反序列化到 Config
+    let cfg = envy::from_env::<Config>()?;
+    Ok(cfg)
+}
+
+
+
+
+// test
 #[cfg(test)]
 mod tests {
-    use super::*;
-    #[test]
-    fn test_get_config() {
-        let cfg = Configs::init();
-        println!("{:?}", cfg);
+        #[test]
+    fn test_load_config() {
+        let config = super::load_config().unwrap();
+        println!("{:?}", config);
     }
 }
