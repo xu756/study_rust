@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 pub mod errors;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct CodeError {
     pub code: ResultError,
     pub msg: String,

@@ -1,2 +1,2 @@
 pub mod connect;
-mod user;
+pub mod user;

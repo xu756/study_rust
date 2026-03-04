@@ -1,5 +1,5 @@
-pub mod result;
+pub mod db;
+pub mod entity;
+pub mod error;
 pub mod jwt;
-mod error;
-mod entity;
-mod db;
+pub mod result;

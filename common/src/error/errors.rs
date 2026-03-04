@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ResultError {
     Ok,
     ParamError,
@@ -18,5 +18,3 @@ pub fn error_code_to_int(err: &ResultError) -> i32 {
         ResultError::WarnError => 204,
     }
 }
-
-
