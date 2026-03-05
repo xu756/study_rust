@@ -44,8 +44,12 @@ jobs:
         run: |
           cargo build -p "${PACKAGE_NAME}" --release
 
+      - name: List release outputs
+        run: |
+          ls -lah target/release
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${PACKAGE_NAME}-linux-arm64
-          path: target/release/${PACKAGE_NAME}
+          name: ${{ env.PACKAGE_NAME }}-linux-arm64
+          path: target/release/${{ env.PACKAGE_NAME }}
