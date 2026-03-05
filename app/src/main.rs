@@ -59,7 +59,7 @@ fn main() -> Result<(), slint::PlatformError> {
     // RTSP: "rtsp://user:pass@ip/xxx"
     // 文件: "file:///home/you/video.mp4"
     // HTTP: "https://example.com/video.mp4"
-    let uri = "rtsp://127.0.0.1:8554/live"; // 改成你的流地址
+    let uri = "rtsp://110.40.208.122:8554/live"; // 改成你的流地址
 
     // 3) 启动 GStreamer 播放线程（不要阻塞 UI）
     {
