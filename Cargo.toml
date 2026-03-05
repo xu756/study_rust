@@ -25,3 +25,5 @@ jsonwebtoken = { version = "10.3.0", features = ["rust_crypto"] }
 chrono = "0.4.44"
 sea-orm = { version = "1.1.19", features = ["sqlx-sqlite", "runtime-tokio","with-time", "macros"] }
 
+slint={version = "1.15.1",features = ["std","backend-winit","renderer-femtovg","compat-1-2"]}
+slint-build = "1.15.1"

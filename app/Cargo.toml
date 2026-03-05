@@ -1,8 +1,11 @@
 [package]
-name = "bin"
+name = "app"
 version.workspace = true
 edition.workspace = true
 authors.workspace = true
 [dependencies]
 router = { path = "../router" }
 tokio = { workspace = true }
+slint = { workspace = true }
+[build-dependencies]
+slint-build.workspace = true

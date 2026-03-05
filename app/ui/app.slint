@@ -1,0 +1,19 @@
+// 定义组件和布局
+
+export component MainWindow inherits Window {
+    // 属性：存储计数状态
+    in-out property<int> counter: 0;
+width: 400px;
+height: 300px;
+    // UI布局：垂直排列
+    VerticalLayout {
+        alignment: LayoutAlignment.center;
+        opacity: 0.3;
+        Text {
+            // 绑定属性：显示计数
+            text: "Count: " + counter;
+            font-size: 24px;
+        }
+       
+    }
+}

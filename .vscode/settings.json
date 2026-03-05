@@ -9,5 +9,7 @@
         "sqlx"
     ],
     "deepscan.ignoreConfirmWarning": true,
-    "rust-analyzer.testExplorer": false
+    "rust-analyzer.testExplorer": false,
+    "rust-analyzer.cargo.buildScripts.enable": true,
+    "rust-analyzer.procMacro.enable": true
 }
