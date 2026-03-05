@@ -1,6 +1,5 @@
 #![cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
 
-use futures::StreamExt;
 use gst::prelude::*;
 use gst::MessageView;
 use gst_app::AppSink;
