@@ -35,3 +35,4 @@ gst-audio = { package = "gstreamer-audio", version = "0.25.0" }
 gst-video = { package = "gstreamer-video", version = "0.25.0" }
 gst-app = { package = "gstreamer-app", version = "0.25.0" }
 
+anyhow = "1.0.102"
