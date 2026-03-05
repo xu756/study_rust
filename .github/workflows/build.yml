@@ -1,0 +1,51 @@
+name: Build Rust Slint (Linux ARM64)
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    env:
+      CARGO_TERM_COLOR: always
+      # 如果是 workspace，改成你的包名（例如 bin / app / ui 等）
+      PACKAGE_NAME: app
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          profile: minimal
+
+      # ✅ Cargo 缓存（registry + git + target）
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          cache-on-failure: true
+          # workspace 的话可以指定工作目录（可选）
+          # workspaces: |
+          #   . -> target
+
+      - name: Install system deps (X11 + fontconfig)
+        run: |
+          sudo apt update
+          sudo apt install -y --no-install-recommends \
+            build-essential pkg-config \
+            libfontconfig1-dev libfreetype6-dev \
+            libx11-dev libxkbcommon-dev libxrandr-dev libxrender-dev libxi-dev \
+            libgl1-mesa-dev
+
+      - name: Build (release)
+        run: |
+          cargo build -p "${PACKAGE_NAME}" --release
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${PACKAGE_NAME}-linux-arm64
+          path: target/release/${PACKAGE_NAME}
