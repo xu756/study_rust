@@ -1,8 +1,8 @@
 name: Build Rust Slint (Linux ARM64)
 
 on:
-  push:
-    branches: [master]
+  # push:
+  #   branches: [master]
   workflow_dispatch:
 
 jobs:
@@ -28,8 +28,8 @@ jobs:
         with:
           cache-on-failure: true
           # workspace 的话可以指定工作目录（可选）
-          # workspaces: |
-          #   . -> target
+          workspaces: |
+            . -> target
 
       - name: Install system deps (X11 + fontconfig)
         run: |
