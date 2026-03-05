@@ -22,5 +22,8 @@ fn main() -> Result<(), slint::PlatformError> {
 
     // 3) UI 必须在主线程跑（run 会阻塞）
     let main_window = MainWindow::new()?;
+    main_window.on_text_changed(|text| {
+        println!("text changed: {}", text);
+    });
     main_window.run()
 }
