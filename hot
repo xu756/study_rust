@@ -1,0 +1,15 @@
+SLINT_LIVE_PREVIEW=1 watchexec \
+  --restart \
+  --watch app/src \
+  --watch app/build.rs \
+  --watch router/src \
+  --watch common/src \
+  --watch config/src \
+  --watch Cargo.toml \
+  --watch app/Cargo.toml \
+  --watch router/Cargo.toml \
+  --watch common/Cargo.toml \
+  --watch config/Cargo.toml \
+  --watch config.toml \
+  --ignore app/ui \
+  -- cargo run -p app --features slint/live-preview

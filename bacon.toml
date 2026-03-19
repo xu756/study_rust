@@ -1,11 +1,19 @@
 default_job = "run-app"
 
 [jobs.run-app]
-command = ["cargo", "run", "-p", "app"]
+command = ["cargo", "run", "-p", "app", "--features", "slint/live-preview"]
 need_stdout = true
 allow_warnings = true
 background = true
-watch = ["common","app"]
+watch = [
+  "app",
+  "router/src",
+  "common",
+  "config",
+  "Cargo.toml",
+  "config.toml"
+]
+env = { SLINT_LIVE_PREVIEW = "1" }
 
 [jobs.check-app]
 command = ["cargo", "check", "-p", "app"]
