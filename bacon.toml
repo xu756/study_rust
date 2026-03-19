@@ -1,0 +1,32 @@
+default_job = "run-app"
+
+[jobs.run-app]
+command = ["cargo", "run", "-p", "app"]
+need_stdout = true
+allow_warnings = true
+background = true
+watch = ["common","app"]
+
+[jobs.check-app]
+command = ["cargo", "check", "-p", "app"]
+need_stdout = false
+allow_warnings = true
+background = true
+
+[jobs.check-workspace]
+command = ["cargo", "check", "--workspace"]
+need_stdout = false
+allow_warnings = true
+background = true
+
+[jobs.test-workspace]
+command = ["cargo", "test", "--workspace"]
+need_stdout = true
+allow_warnings = true
+background = false
+
+[jobs.clippy-workspace]
+command = ["cargo", "clippy", "--workspace", "--", "-D", "warnings"]
+need_stdout = true
+allow_warnings = false
+background = false

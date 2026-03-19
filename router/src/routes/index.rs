@@ -1,12 +1,12 @@
 use axum::extract::rejection::JsonRejection;
-use axum::routing::post;
+use axum::routing::{get};
 use axum::{Json, Router};
 use common::result::{param_error, success};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
 pub fn router() -> Router<crate::state::AppState> {
-    Router::new().route("/", post(index_handler))
+    Router::new().route("/", get(index_handler))
 }
 
 async fn index_handler(payload: Result<Json<User>, JsonRejection>) -> Json<Value> {

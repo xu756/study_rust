@@ -17,7 +17,7 @@ pub async fn init_router() -> Result<(), Box<dyn std::error::Error>> {
         .layer(CorsLayer::permissive());
 
     let addr: SocketAddr = config::CFG.server.address.parse()?;
-    println!("启动 web 11服务: http://{addr}");
+    println!("启动 web 服务: http://{addr}");
     println!("API 前缀: {api_prefix}");
     let listener = tokio::net::TcpListener::bind(addr).await?;
     axum::serve(listener, app).await?;
