@@ -7,10 +7,5 @@ authors.workspace = true
 router = { path = "../router" }
 tokio = { workspace = true }
 slint = { workspace = true }
-futures = { workspace = true }
-gst = { workspace = true }
-gst-app = { workspace = true }
-gst-video = { workspace = true }
-anyhow = { workspace = true }
 [build-dependencies]
 slint-build = { workspace = true }

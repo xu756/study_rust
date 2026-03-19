@@ -2,7 +2,7 @@
 import { TextEdit } from "std-widgets.slint";
 import "AlimamaShuHeiTi-Bold.ttf";
 
-export component MainWindow inherits Window {
+export component App inherits Window {
     // 属性：存储计数状态
     in-out property<int> counter: 0;
 
@@ -11,13 +11,13 @@ export component MainWindow inherits Window {
     width: 400px;
     height: 300px;
     // 显式指定中文字体，避免中文显示乱码
-    default-font-family: "Hiragino Sans GB";
+    // default-font-family: "Hiragino Sans GB";
     // UI布局：垂直排列
     VerticalLayout {
         alignment: LayoutAlignment.center;
         Text {
             // 绑定属性：显示计数
-            text: "Count: 你好 \n世界" + counter;
+            text: "Count: 你好 \n世界111 1111" + counter;
             font-size: 24px;
         }
         TextEdit {

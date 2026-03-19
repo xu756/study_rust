@@ -27,12 +27,3 @@ sea-orm = { version = "1.1.19", features = ["sqlx-sqlite", "runtime-tokio","with
 
 slint={version = "1.15.1",features = ["std","backend-winit","renderer-femtovg","compat-1-2"]}
 slint-build = "1.15.1"
-
-futures = { version = "0.3.28" }
-
-gst = { package = "gstreamer", version = "0.25.1" }
-gst-audio = { package = "gstreamer-audio", version = "0.25.0" }
-gst-video = { package = "gstreamer-video", version = "0.25.0" }
-gst-app = { package = "gstreamer-app", version = "0.25.0" }
-
-anyhow = "1.0.102"
