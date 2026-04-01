@@ -1,0 +1,76 @@
+import {
+    UButton,
+    UButtonVariant,
+    UCard,
+    UTag,
+    UTagVariant,
+    UText,
+    UTitle,
+} from "@sleek-ui/widgets.slint";
+import { UAppTheme } from "@sleek-ui/app-theme.slint";
+
+export component CounterCard inherits UCard {
+    in property <int> counter;
+    callback increment();
+    callback reset();
+
+    min-width: 240px;
+    min-height: 180px;
+
+    VerticalLayout {
+        padding: 20px;
+        spacing: 16px;
+
+        HorizontalLayout {
+            alignment: space-between;
+
+            UTitle {
+                text: "计数器";
+                level: 5;
+            }
+
+            UTag {
+                text: "sleek-ui";
+                variant: UTagVariant.filled;
+            }
+        }
+
+        VerticalLayout {
+            alignment: center;
+            spacing: 6px;
+
+            UText {
+                text: "当前值";
+                color: UAppTheme.text-secondary;
+            }
+
+            UTitle {
+                text: counter;
+                level: 2;
+                color: UAppTheme.primary.base;
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 12px;
+
+            UButton {
+                horizontal-stretch: 1;
+                text: "点击 +1";
+                variant: UButtonVariant.primary;
+                clicked => {
+                    root.increment();
+                }
+            }
+
+            UButton {
+                horizontal-stretch: 1;
+                text: "重置";
+                variant: UButtonVariant.default;
+                clicked => {
+                    root.reset();
+                }
+            }
+        }
+    }
+}

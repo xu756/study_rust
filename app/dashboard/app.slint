@@ -1,0 +1,68 @@
+import { UAppTheme } from "@sleek-ui/app-theme.slint";
+import { HomePage } from "pages/home-page.slint";
+
+export component App inherits Window {
+    in-out property <int> counter: 0;
+    in-out property <string> editor_text:
+        "Slint 是一个工具，它提供了一种易于学习和使用的语言，用于描述用户界面。";
+
+    callback text_changed(string);
+    callback menu_exit();
+
+    width: 960px;
+    height: 720px;
+    title: "Sleek UI Demo";
+    background: UAppTheme.bg-layout;
+
+    MenuBar {
+        Menu {
+            title: "文件";
+
+            MenuItem {
+                title: "新建";
+                activated => {
+                    root.counter = 0;
+                    root.editor_text = "";
+                    root.text_changed(root.editor_text);
+                }
+            }
+
+            MenuItem {
+                title: "重置计数";
+                activated => {
+                    root.counter = 0;
+                }
+            }
+
+            MenuSeparator { }
+
+            MenuItem {
+                title: "退出";
+                activated => {
+                    root.menu_exit();
+                }
+            }
+        }
+
+        Menu {
+            title: "帮助";
+
+            MenuItem {
+                title: "关于";
+                activated => {
+                    root.editor_text = "这是一个使用 Slint + sleek-ui 构建的示例界面。";
+                    root.text_changed(root.editor_text);
+                }
+            }
+        }
+    }
+
+    HomePage {
+        counter <=> root.counter;
+        editor_text <=> root.editor_text;
+
+        text_changed(text) => {
+            root.text_changed(text);
+        }
+    }
+}

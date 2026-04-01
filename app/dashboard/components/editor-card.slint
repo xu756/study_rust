@@ -1,0 +1,56 @@
+import { TextEdit } from "std-widgets.slint";
+import {
+    UCard,
+    UDivider,
+    UText,
+    UTitle,
+} from "@sleek-ui/widgets.slint";
+import { UAppTheme } from "@sleek-ui/app-theme.slint";
+
+export component EditorCard inherits UCard {
+    in-out property <string> content;
+    callback content_changed(string);
+
+    min-height: 320px;
+
+    VerticalLayout {
+        padding: 20px;
+        spacing: 12px;
+
+        HorizontalLayout {
+            alignment: space-between;
+
+            UTitle {
+                text: "文本编辑区";
+                level: 5;
+            }
+
+            UText {
+                text: "当前内容：" + content;
+                color: UAppTheme.text-secondary;
+            }
+        }
+
+        UDivider { }
+
+        Rectangle {
+            border-radius: 10px;
+            border-width: 1px;
+            border-color: UAppTheme.border;
+            background: UAppTheme.bg-elevated;
+            clip: true;
+            horizontal-stretch: 1;
+            vertical-stretch: 1;
+
+            TextEdit {
+                text <=> root.content;
+                width: parent.width;
+                height: parent.height;
+                font-size: 14px;
+                edited => {
+                    root.content_changed(self.text);
+                }
+            }
+        }
+    }
+}

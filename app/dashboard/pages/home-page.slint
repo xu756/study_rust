@@ -1,0 +1,71 @@
+import {
+    UCard,
+    UDivider,
+    UText,
+    UTitle,
+} from "@sleek-ui/widgets.slint";
+
+import { PageTitle } from "../components/page-title.slint";
+import { CounterCard } from "../components/counter-card.slint";
+import { EditorCard } from "../components/editor-card.slint";
+
+export component HomePage inherits Rectangle {
+    in-out property <int> counter;
+    in-out property <string> editor_text;
+    callback text_changed(string);
+
+    VerticalLayout {
+        padding: 24px;
+        spacing: 16px;
+
+        PageTitle {
+            title: "Slint + Sleek UI";
+            subtitle: "把页面拆成组件以后，主文件会清爽很多。";
+        }
+
+        HorizontalLayout {
+            spacing: 16px;
+
+            CounterCard {
+                counter: root.counter;
+                increment => {
+                    root.counter += 1;
+                }
+                reset => {
+                    root.counter = 0;
+                }
+            }
+
+            UCard {
+                horizontal-stretch: 1;
+                min-height: 180px;
+
+                VerticalLayout {
+                    padding: 20px;
+                    spacing: 12px;
+
+                    UTitle {
+                        text: "说明";
+                        level: 5;
+                    }
+
+                    UDivider { }
+
+                    UText {
+                        wrap: word-wrap;
+                        text: "这里是页面说明区。";
+                    }
+                }
+            }
+        }
+
+        EditorCard {
+            horizontal-stretch: 1;
+            vertical-stretch: 1;
+            content <=> root.editor_text;
+            content_changed(text) => {
+                root.text_changed(text);
+            }
+        }
+    }
+}

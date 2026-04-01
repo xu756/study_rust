@@ -1,0 +1,27 @@
+import {
+    UCard,
+    UText,
+    UTitle,
+} from "@sleek-ui/widgets.slint";
+
+export component PageTitle inherits UCard {
+    in property <string> title;
+    in property <string> subtitle;
+
+    min-height: 96px;
+
+    VerticalLayout {
+        padding: 20px;
+        spacing: 8px;
+
+        UTitle {
+            text: title;
+            level: 3;
+        }
+
+        UText {
+            text: subtitle;
+            wrap: word-wrap;
+        }
+    }
+}
