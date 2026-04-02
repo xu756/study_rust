@@ -4,7 +4,7 @@
 mod home_state;
 
 use home_state::{bind_home_callbacks, initialize_home_page};
-use router::init_router;
+// use router::init_router;
 
 slint::include_modules!();
 
@@ -17,10 +17,10 @@ fn main() -> Result<(), slint::PlatformError> {
 
     // 2) server 后台跑（不要阻塞 UI）
     rt.spawn(async {
-        if let Err(err) = init_router().await {
-            eprintln!("server startup failed: {err}");
-            // 一般不建议在这里 std::process::exit(1)，会把整个 UI 一起干掉
-        }
+        // if let Err(err) = init_router().await {
+        //     eprintln!("server startup failed: {err}");
+        //     // 一般不建议在这里 std::process::exit(1)，会把整个 UI 一起干掉
+        // }
     });
 
     // 3) UI 必须在主线程跑（run 会阻塞）
