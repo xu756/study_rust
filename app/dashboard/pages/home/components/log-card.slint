@@ -1,0 +1,140 @@
+import {
+    UCard,
+    UText,
+    UTitle,
+} from "@sleek-ui/widgets.slint";
+import { UAppTheme } from "@sleek-ui/app-theme.slint";
+import { HomeLogItem, HomeLogLevel } from "../models.slint";
+
+component HiddenLogView inherits Flickable {
+    interactive: true;
+    viewport-x: 0px;
+    viewport-width: self.width;
+    out property <length> visible-width <=> self.width;
+    out property <length> visible-height <=> self.height;
+
+    public function scroll-to-latest() {
+        self.viewport-x = 0px;
+        if self.viewport-height > self.height {
+            self.viewport-y = self.height - self.viewport-height;
+        } else {
+            self.viewport-y = 0px;
+        }
+    }
+
+    @children
+}
+
+export component LogCard inherits UCard {
+    in property <[HomeLogItem]> log_items: [];
+
+    min-height: 156px;
+
+    function get_log_color(level: HomeLogLevel) -> brush {
+        if level == HomeLogLevel.success {
+            return UAppTheme.success.base;
+        } else if level == HomeLogLevel.warning {
+            return UAppTheme.warning.base;
+        } else if level == HomeLogLevel.error {
+            return UAppTheme.danger.base;
+        }
+        return UAppTheme.text-secondary;
+    }
+
+    changed log_items => {
+        // 日志数据整体被替换后，自动滚到最新一条。
+        scroll_to_latest_timer.restart();
+    }
+
+    VerticalLayout {
+        padding: 18px;
+        spacing: 12px;
+
+        HorizontalLayout {
+            alignment: space-between;
+
+            UTitle {
+                text: "运行日志";
+                level: 5;
+            }
+
+            UText {
+                text: "支持滚动";
+                color: UAppTheme.text-secondary;
+                font-size: 12px;
+            }
+        }
+
+        Rectangle {
+            horizontal-stretch: 1;
+            vertical-stretch: 1;
+            border-radius: 10px;
+            border-width: 1px;
+            border-color: UAppTheme.border;
+            background: UAppTheme.bg-container;
+            clip: true;
+
+            log_view := HiddenLogView {
+                width: parent.width;
+                height: parent.height;
+
+                // 顶部留白，避免日志内容紧贴边框。
+                Rectangle {
+                    width: 1px;
+                    height: 14px;
+                    background: transparent;
+                }
+
+                // 日志项直接作为 Flickable 子元素，才能正确产生纵向滚动区域。
+                for log_item[index] in root.log_items: Rectangle {
+                    x: 14px;
+                    width: parent.width - 28px;
+                    min-height: 44px;
+                    background: transparent;
+
+                    VerticalLayout {
+                        spacing: 4px;
+
+                        UText {
+                            text: log_item.timestamp;
+                            color: UAppTheme.text-tertiary;
+                            font-size: 12px;
+                        }
+
+                        UText {
+                            text: log_item.message;
+                            color: root.get_log_color(log_item.level);
+                            wrap: word-wrap;
+                            font-size: 14px;
+                        }
+                    }
+
+                    Timer {
+                        interval: 1ms;
+                        running: index == root.log_items.length - 1;
+                        triggered => {
+                            log_view.scroll-to-latest();
+                            self.running = false;
+                        }
+                    }
+                }
+
+                // 底部留白，自动滚动到底部时视觉更自然。
+                Rectangle {
+                    width: 1px;
+                    height: 14px;
+                    background: transparent;
+                }
+            }
+        }
+
+        scroll_to_latest_timer := Timer {
+            interval: 1ms;
+            running: false;
+            triggered => {
+                log_view.scroll-to-latest();
+                self.stop();
+            }
+        }
+    }
+}

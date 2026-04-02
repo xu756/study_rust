@@ -1,69 +1,83 @@
 import { UAppTheme } from "@sleek-ui/app-theme.slint";
-import { HomePage } from "pages/home-page.slint";
+import { HomePage } from "pages/home/page.slint";
+import {
+    HomeDeviceStatusColor,
+    HomeDeviceStatusItem,
+    HomeLogItem,
+    HomeLogLevel,
+} from "pages/home/models.slint";
 import "../static/DingTalk-JinBuTi.ttf";
+
 export component App inherits Window {
-    in-out property <int> counter: 0;
-    in-out property <string> editor_text:
-        "Slint 是一个工具，它提供了一种易于学习和使用的语言，用于描述用户界面。";
+    in-out property <string> weight_value: "0";
+    in-out property <string> weight_unit_label: "单位";
+    in-out property <string> weight_unit: "KG";
+    in-out property <[HomeDeviceStatusItem]> device_statuses: [
+        { label: "连接", indicator_color: HomeDeviceStatusColor.success },
+        { label: "通讯", indicator_color: HomeDeviceStatusColor.warning },
+        { label: "稳定", indicator_color: HomeDeviceStatusColor.danger },
+    ];
+    in-out property <[HomeLogItem]> log_items: [
+        {
+            level: HomeLogLevel.warning,
+            timestamp: "2026-04-03 09:20:12",
+            message: "地磅首页已切换到新的布局骨架，等待后端日志接入。",
+        },
+        {
+            level: HomeLogLevel.success,
+            timestamp: "2026-04-03 09:20:36",
+            message: "设备状态卡片初始化完成，当前使用前端预置数据。",
+        },
+        {
+            level: HomeLogLevel.info,
+            timestamp: "2026-04-03 09:21:08",
+            message: "监控区域与实时数据区域暂时保留占位，后续再接业务模块。",
+        },
+        {
+            level: HomeLogLevel.error,
+            timestamp: "2026-04-03 09:21:40",
+            message: "当前错误日志仅用于演示颜色效果，未接入真实异常流。",
+        },
+    ];
+    in-out property <[string]> process_step_labels: [
+        "实时上磅",
+        "识别车牌",
+        "称量中",
+        "完成下磅",
+    ];
+    in-out property <int> current_step_index: 0;
 
-    callback text_changed(string);
-    callback menu_exit();
+    callback request_refresh_home_data();
+    callback request_select_process_step(int);
+    callback request_switch_monitor_panel(int);
 
-    width: 960px;
-    height: 720px;
-    title: "Sleek UI Demo";
+    preferred-width: 1180px;
+    preferred-height: 760px;
+    title: "称重系统";
     background: UAppTheme.bg-layout;
     default-font-family: "DingTalk JinBuTi";
 
-    MenuBar {
-        Menu {
-            title: "文件";
-
-            MenuItem {
-                title: "新建";
-                activated => {
-                    root.counter = 0;
-                    root.editor_text = "";
-                    root.text_changed(root.editor_text);
-                }
-            }
-
-            MenuItem {
-                title: "重置计数";
-                activated => {
-                    root.counter = 0;
-                }
-            }
-
-            MenuSeparator { }
-
-            MenuItem {
-                title: "退出";
-                activated => {
-                    root.menu_exit();
-                }
-            }
-        }
-
-        Menu {
-            title: "帮助";
-
-            MenuItem {
-                title: "关于";
-                activated => {
-                    root.editor_text = "这是一个使用 Slint + sleek-ui 构建的示例界面。";
-                    root.text_changed(root.editor_text);
-                }
-            }
-        }
-    }
-
     HomePage {
-        counter <=> root.counter;
-        editor_text <=> root.editor_text;
+        width: parent.width;
+        height: parent.height;
+        weight_value <=> root.weight_value;
+        weight_unit_label <=> root.weight_unit_label;
+        weight_unit <=> root.weight_unit;
+        device_statuses <=> root.device_statuses;
+        log_items <=> root.log_items;
+        process_step_labels <=> root.process_step_labels;
+        current_step_index <=> root.current_step_index;
 
-        text_changed(text) => {
-            root.text_changed(text);
+        request_refresh_home_data => {
+            root.request_refresh_home_data();
+        }
+
+        request_select_process_step(step_index) => {
+            root.request_select_process_step(step_index);
+        }
+
+        request_switch_monitor_panel(panel_index) => {
+            root.request_switch_monitor_panel(panel_index);
         }
     }
 }

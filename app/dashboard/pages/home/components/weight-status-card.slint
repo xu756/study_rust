@@ -1,0 +1,123 @@
+import {
+    UCard,
+    UText,
+    UTitle,
+} from "@sleek-ui/widgets.slint";
+import { UAppTheme } from "@sleek-ui/app-theme.slint";
+import { HomeDeviceStatusColor, HomeDeviceStatusItem } from "../models.slint";
+
+export component WeightStatusCard inherits UCard {
+    in property <string> weight_value: "0";
+    in property <string> weight_unit_label: "单位";
+    in property <string> weight_unit: "KG";
+    in property <[HomeDeviceStatusItem]> device_statuses: [];
+    private property <length> indicator_column_width: 18px;
+    private property <length> status_row_height: 26px;
+
+    min-height: 156px;
+
+    function get_indicator_color(indicator_color: HomeDeviceStatusColor) -> brush {
+        if indicator_color == HomeDeviceStatusColor.warning {
+            return UAppTheme.warning.base;
+        } else if indicator_color == HomeDeviceStatusColor.danger {
+            return UAppTheme.danger.base;
+        }
+        return UAppTheme.success.base;
+    }
+
+    HorizontalLayout {
+        padding: 18px;
+        spacing: 16px;
+
+        Rectangle {
+            horizontal-stretch: 3;
+            border-radius: 12px;
+            background: #050505;
+
+            VerticalLayout {
+                alignment: center;
+                spacing: 6px;
+
+                UText {
+                    text: "实时重量";
+                    color: #8AA0B4;
+                    font-size: 13px;
+                }
+
+                Text {
+                    text: root.weight_value;
+                    color: #18D05F;
+                    font-size: 82px;
+                    font-weight: 500;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                }
+            }
+        }
+
+        Rectangle {
+            horizontal-stretch: 2;
+            background: transparent;
+
+            VerticalLayout {
+                alignment: center;
+                spacing: 10px;
+
+                HorizontalLayout {
+                    alignment: start;
+                    spacing: 8px;
+                    min-height: root.status_row_height;
+
+                    Rectangle {
+                        width: root.indicator_column_width;
+                        height: root.status_row_height;
+                        background: transparent;
+                    }
+
+                    HorizontalLayout {
+                        spacing: 8px;
+
+                        UText {
+                            text: root.weight_unit_label;
+                            color: UAppTheme.text-secondary;
+                            vertical-alignment: center;
+                        }
+
+                        UTitle {
+                            text: root.weight_unit;
+                            level: 5;
+                            vertical-alignment: center;
+                        }
+                    }
+                }
+
+                for status in root.device_statuses: HorizontalLayout {
+                    spacing: 10px;
+                    min-height: root.status_row_height;
+
+                    Rectangle {
+                        width: root.indicator_column_width;
+                        height: root.status_row_height;
+                        background: transparent;
+
+                        Rectangle {
+                            width: 12px;
+                            height: 12px;
+                            x: (parent.width - self.width) / 2;
+                            y: (parent.height - self.height) / 2;
+                            border-radius: 999px;
+                            background: root.get_indicator_color(status.indicator_color);
+                        }
+                    }
+
+                    UText {
+                        text: status.label;
+                        color: UAppTheme.text;
+                        font-size: 15px;
+                        vertical-alignment: center;
+                    }
+                }
+            }
+        }
+    }
+}

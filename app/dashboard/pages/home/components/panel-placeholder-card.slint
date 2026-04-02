@@ -1,0 +1,74 @@
+import { UCard, UText, UTitle } from "@sleek-ui/widgets.slint";
+import { UAppTheme } from "@sleek-ui/app-theme.slint";
+
+export component PanelPlaceholderCard inherits UCard {
+    in property <string> title;
+    in property <string> subtitle;
+    in property <string> badge_text: "预留区域";
+    VerticalLayout {
+        padding: 20px;
+        spacing: 16px;
+
+        HorizontalLayout {
+            alignment: space-between;
+
+            VerticalLayout {
+                spacing: 6px;
+
+                UTitle {
+                    text: root.title;
+                    level: 5;
+                }
+
+                UText {
+                    text: root.subtitle;
+                    color: UAppTheme.text-secondary;
+                    wrap: word-wrap;
+                }
+            }
+
+            Rectangle {
+                min-width: 76px;
+                height: 28px;
+                border-radius: 999px;
+                background: UAppTheme.color-fill-secondary;
+
+                UText {
+                    text: root.badge_text;
+                    color: UAppTheme.text-secondary;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                    width: parent.width;
+                    height: parent.height;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        Rectangle {
+            horizontal-stretch: 1;
+            vertical-stretch: 1;
+            border-radius: 14px;
+            border-width: 1px;
+            border-color: UAppTheme.border-secondary;
+            background: UAppTheme.bg-layout;
+
+            VerticalLayout {
+                alignment: center;
+                spacing: 10px;
+
+                UTitle {
+                    text: root.title;
+                    level: 4;
+                    color: UAppTheme.text-secondary;
+                }
+
+                UText {
+                    text: "当前只保留布局位置，后续再接真实模块。";
+                    color: UAppTheme.text-tertiary;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}

@@ -1,6 +1,9 @@
 
 #![cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
 
+mod home_state;
+
+use home_state::{bind_home_callbacks, initialize_home_page};
 use router::init_router;
 
 slint::include_modules!();
@@ -22,6 +25,8 @@ fn main() -> Result<(), slint::PlatformError> {
 
     // 3) UI 必须在主线程跑（run 会阻塞）
     let main_window = App::new()?;
-    // main_window
+    // 初始化首页默认展示数据，并绑定后续接后端时要用到的空回调。
+    initialize_home_page(&main_window);
+    bind_home_callbacks(&main_window);
     main_window.run()
 }

@@ -1,0 +1,53 @@
+import { UCard, UText, UTitle } from "@sleek-ui/widgets.slint";
+import { UAppTheme } from "@sleek-ui/app-theme.slint";
+
+export component ProcessStepCard inherits UCard {
+    in property <[string]> step_labels: [];
+    in property <int> current_step_index: 0;
+    callback step_selected(int);
+
+    min-height: 156px;
+
+    VerticalLayout {
+        padding: 18px;
+        spacing: 14px;
+
+        VerticalLayout {
+            spacing: 4px;
+
+            UTitle {
+                text: "实时状态步骤";
+                level: 5;
+            }
+
+            UText {
+                text: root.step_labels.length > root.current_step_index ? root.step_labels[root.current_step_index] : "等待状态同步";
+                color: UAppTheme.success.base;
+                font-size: 16px;
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 8px;
+
+            for step_label[index] in root.step_labels: Rectangle {
+                horizontal-stretch: 1;
+                height: 48px;
+                border-radius: 10px;
+                border-width: 1px;
+                border-color: index == root.current_step_index ? UAppTheme.primary.base : index < root.current_step_index ? UAppTheme.success.base : UAppTheme.border;
+                background: index == root.current_step_index ? UAppTheme.primary.base : index < root.current_step_index ? UAppTheme.success.base : UAppTheme.bg-layout;
+
+                UText {
+                    text: step_label;
+                    color: index <= root.current_step_index ? UAppTheme.primary-text : UAppTheme.text-secondary;
+                    horizontal-alignment: center;
+                    vertical-alignment: center;
+                    width: parent.width;
+                    height: parent.height;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}

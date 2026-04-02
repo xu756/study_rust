@@ -1,0 +1,27 @@
+// 首页日志级别，用于控制日志文本颜色。
+export enum HomeLogLevel {
+    info,
+    success,
+    warning,
+    error,
+}
+
+// 首页设备状态灯颜色，用于支持红黄绿三种状态。
+export enum HomeDeviceStatusColor {
+    success,
+    warning,
+    danger,
+}
+
+// 首页设备状态项，用于显示连接、通讯、稳定等状态。
+export struct HomeDeviceStatusItem {
+    label: string,
+    indicator_color: HomeDeviceStatusColor,
+}
+
+// 首页日志项，后续后端联动时直接填充这个结构即可。
+export struct HomeLogItem {
+    level: HomeLogLevel,
+    timestamp: string,
+    message: string,
+}

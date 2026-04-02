@@ -1,0 +1,88 @@
+import {
+    LogCard,
+    PanelPlaceholderCard,
+    ProcessStepCard,
+    WeightStatusCard,
+} from "components/page.slint";
+import { HomeDeviceStatusItem, HomeLogItem } from "models.slint";
+
+export component HomePage inherits Rectangle {
+    in property <string> weight_value: "0";
+    in property <string> weight_unit_label: "单位";
+    in property <string> weight_unit: "KG";
+    in property <[HomeDeviceStatusItem]> device_statuses: [];
+    in property <[HomeLogItem]> log_items: [];
+    in property <[string]> process_step_labels: [];
+    in property <int> current_step_index: 0;
+
+    callback request_refresh_home_data();
+    callback request_select_process_step(int);
+    callback request_switch_monitor_panel(int);
+    // 页面四周留白。
+    private property <length> page_padding: 20px;
+    // 卡片之间统一间距。
+    private property <length> card_gap: 16px;
+    // 顶部三张卡片统一高度。
+    private property <length> top_card_height: 156px;
+    // 内容区可用宽度。
+    private property <length> content_width: root.width - root.page_padding * 2;
+    // 单张顶部卡片宽度，保证第一行严格等宽。
+    private property <length> top_card_width: (root.content_width - root.card_gap * 2) / 3;
+    // 底部左侧卡片宽度，占前两列并加上中间间距。
+    private property <length> bottom_left_width: root.top_card_width * 2 + root.card_gap;
+    // 底部内容起始位置。
+    private property <length> bottom_row_y: root.page_padding + root.top_card_height + root.card_gap;
+    // 底部卡片高度，占满剩余空间。
+    private property <length> bottom_card_height: root.height - root.bottom_row_y - root.page_padding;
+
+    clip: true;
+    background: transparent;
+
+    WeightStatusCard {
+        x: root.page_padding;
+        y: root.page_padding;
+        width: root.top_card_width;
+        height: root.top_card_height;
+        weight_value: root.weight_value;
+        weight_unit_label: root.weight_unit_label;
+        weight_unit: root.weight_unit;
+        device_statuses: root.device_statuses;
+    }
+
+    LogCard {
+        x: root.page_padding + root.top_card_width + root.card_gap;
+        y: root.page_padding;
+        width: root.top_card_width;
+        height: root.top_card_height;
+        log_items: root.log_items;
+    }
+
+    ProcessStepCard {
+        x: root.page_padding + (root.top_card_width + root.card_gap) * 2;
+        y: root.page_padding;
+        width: root.top_card_width;
+        height: root.top_card_height;
+        step_labels: root.process_step_labels;
+        current_step_index: root.current_step_index;
+    }
+
+    PanelPlaceholderCard {
+        x: root.page_padding;
+        y: root.bottom_row_y;
+        width: root.bottom_left_width;
+        height: root.bottom_card_height;
+        title: "实时数据区域";
+        subtitle: "后续在这里接称重信息、业务表单和实时数据面板。";
+        badge_text: "左侧主区";
+    }
+
+    PanelPlaceholderCard {
+        x: root.page_padding + (root.top_card_width + root.card_gap) * 2;
+        y: root.bottom_row_y;
+        width: root.top_card_width;
+        height: root.bottom_card_height;
+        title: "监控区域";
+        subtitle: "后续在这里接视频监控、抓拍画面或识别结果。";
+        badge_text: "右侧监控";
+    }
+}
