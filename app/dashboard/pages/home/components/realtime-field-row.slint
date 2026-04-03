@@ -15,7 +15,7 @@ export component RealtimeFieldRow inherits Rectangle {
 
         UText {
             width: root.label_width;
-            text: root.label;
+            text: root.label + ":";
             color: UAppTheme.text-secondary;
             vertical-alignment: center;
             font-size: 14px;
@@ -25,7 +25,6 @@ export component RealtimeFieldRow inherits Rectangle {
             horizontal-stretch: 1;
             height: root.field_height;
             text: root.value;
-            read-only: true;
         }
     }
 }

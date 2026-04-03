@@ -29,12 +29,12 @@ export component RealtimeInfoCard inherits UCard {
         }
 
         HorizontalLayout {
-            spacing: 18px;
 
             Rectangle {
                 horizontal-stretch: 3;
                 vertical-stretch: 1;
-                border-radius: 14px;
+                border-top-left-radius: 14px;
+                border-bottom-left-radius: 14px;
                 border-width: 1px;
                 border-color: UAppTheme.border-secondary;
                 background: UAppTheme.bg-layout;
@@ -54,7 +54,8 @@ export component RealtimeInfoCard inherits UCard {
             Rectangle {
                 horizontal-stretch: 2;
                 vertical-stretch: 1;
-                border-radius: 14px;
+                border-top-right-radius: 14px;
+                border-bottom-right-radius: 14px;
                 border-width: 1px;
                 border-color: UAppTheme.border-secondary;
                 background: UAppTheme.bg-layout;
