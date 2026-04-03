@@ -37,17 +37,38 @@ export component WeightStatusCard inherits UCard {
             VerticalLayout {
                 alignment: center;
                 spacing: 6px;
+                HorizontalLayout {
+                    alignment: start;
+                    spacing: 8px;
+                    padding-left: 12px;
+                    UText {
+                        text: "   实时重量";
+                        color: #8AA0B4;
+                        font-size: 13px;
+                    }
 
-                UText {
-                    text: "   实时重量";
-                    color: #8AA0B4;
-                    font-size: 13px;
+                    HorizontalLayout {
+                        alignment: start;
+                        spacing: 8px;
+
+                        UText {
+                            text: root.weight_unit_label;
+                            color: #8AA0B4;
+                            vertical-alignment: center;
+                        }
+
+                        UText {
+                            text: root.weight_unit;
+                            color: #8AA0B4;
+                            vertical-alignment: center;
+                        }
+                    }
                 }
 
                 Text {
                     text: root.weight_value;
                     color: #18D05F;
-                    font-size: 82px;
+                    font-size: 50px;
                     font-weight: 500;
                     horizontal-alignment: center;
                     vertical-alignment: center;
@@ -62,34 +83,6 @@ export component WeightStatusCard inherits UCard {
             VerticalLayout {
                 alignment: center;
                 spacing: 10px;
-
-                HorizontalLayout {
-                    alignment: start;
-                    spacing: 8px;
-                    min-height: root.status_row_height;
-
-                    Rectangle {
-                        width: root.indicator_column_width;
-                        height: root.status_row_height;
-                        background: transparent;
-                    }
-
-                    HorizontalLayout {
-                        spacing: 8px;
-
-                        UText {
-                            text: root.weight_unit_label;
-                            color: UAppTheme.text-secondary;
-                            vertical-alignment: center;
-                        }
-
-                        UTitle {
-                            text: root.weight_unit;
-                            level: 5;
-                            vertical-alignment: center;
-                        }
-                    }
-                }
 
                 for status in root.device_statuses: HorizontalLayout {
                     spacing: 10px;
