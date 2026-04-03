@@ -7,5 +7,9 @@ authors.workspace = true
 router = { path = "../router" }
 tokio = { workspace = true }
 slint = { workspace = true }
+
+[dev-dependencies]
+i-slint-backend-testing = "1.15.1"
+
 [build-dependencies]
 slint-build = { workspace = true }

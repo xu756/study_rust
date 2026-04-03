@@ -9,7 +9,7 @@ import {
 import "../static/DingTalk-JinBuTi.ttf";
 
 export component App inherits Window {
-    in-out property <string> weight_value: "0";
+    in-out property <string> weight_value: "3";
     in-out property <string> weight_unit_label: "单位";
     in-out property <string> weight_unit: "KG";
     in-out property <[HomeDeviceStatusItem]> device_statuses: [
@@ -45,7 +45,7 @@ export component App inherits Window {
         "称量中",
         "完成下磅",
     ];
-    in-out property <int> current_step_index: 0;
+    in-out property <int> current_step_index: 1;
 
     callback request_refresh_home_data();
     callback request_select_process_step(int);

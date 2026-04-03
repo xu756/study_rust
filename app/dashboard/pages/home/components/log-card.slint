@@ -7,19 +7,16 @@ import { UAppTheme } from "@sleek-ui/app-theme.slint";
 import { HomeLogItem, HomeLogLevel } from "../models.slint";
 
 component HiddenLogView inherits Flickable {
+    in property <length> content-height: self.height;
+
     interactive: true;
     viewport-x: 0px;
     viewport-width: self.width;
-    out property <length> visible-width <=> self.width;
-    out property <length> visible-height <=> self.height;
+    viewport-height: max(self.height, self.content-height);
 
     public function scroll-to-latest() {
         self.viewport-x = 0px;
-        if self.viewport-height > self.height {
-            self.viewport-y = self.height - self.viewport-height;
-        } else {
-            self.viewport-y = 0px;
-        }
+        self.viewport-y = self.height - self.viewport-height;
     }
 
     @children
@@ -39,6 +36,10 @@ export component LogCard inherits UCard {
             return UAppTheme.danger.base;
         }
         return UAppTheme.text-secondary;
+    }
+
+    init => {
+        scroll_to_latest_timer.restart();
     }
 
     changed log_items => {
@@ -77,53 +78,38 @@ export component LogCard inherits UCard {
             log_view := HiddenLogView {
                 width: parent.width;
                 height: parent.height;
+                content-height: log_content.preferred-height;
 
-                // 顶部留白，避免日志内容紧贴边框。
-                Rectangle {
-                    width: 1px;
-                    height: 14px;
-                    background: transparent;
-                }
+                log_content := VerticalLayout {
+                    width: log_view.width;
+                    spacing: 10px;
+                    padding-top: 14px;
+                    padding-bottom: 14px;
+                    padding-left: 14px;
+                    padding-right: 14px;
 
-                // 日志项直接作为 Flickable 子元素，才能正确产生纵向滚动区域。
-                for log_item[index] in root.log_items: Rectangle {
-                    x: 14px;
-                    width: parent.width - 28px;
-                    min-height: 44px;
-                    background: transparent;
+                    for log_item in root.log_items: Rectangle {
+                        width: 100%;
+                        min-height: 44px;
+                        background: transparent;
 
-                    VerticalLayout {
-                        spacing: 4px;
+                        VerticalLayout {
+                            spacing: 4px;
 
-                        UText {
-                            text: log_item.timestamp;
-                            color: UAppTheme.text-tertiary;
-                            font-size: 12px;
-                        }
+                            UText {
+                                text: log_item.timestamp;
+                                color: UAppTheme.text-tertiary;
+                                font-size: 12px;
+                            }
 
-                        UText {
-                            text: log_item.message;
-                            color: root.get_log_color(log_item.level);
-                            wrap: word-wrap;
-                            font-size: 14px;
-                        }
-                    }
-
-                    Timer {
-                        interval: 1ms;
-                        running: index == root.log_items.length - 1;
-                        triggered => {
-                            log_view.scroll-to-latest();
-                            self.running = false;
+                            UText {
+                                text: log_item.message;
+                                color: root.get_log_color(log_item.level);
+                                wrap: word-wrap;
+                                font-size: 14px;
+                            }
                         }
                     }
-                }
-
-                // 底部留白，自动滚动到底部时视觉更自然。
-                Rectangle {
-                    width: 1px;
-                    height: 14px;
-                    background: transparent;
                 }
             }
         }

@@ -239,6 +239,7 @@ checksum = "7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c"
 name = "app"
 version = "0.1.0"
 dependencies = [
+ "i-slint-backend-testing",
  "router",
  "slint",
  "slint-build",
@@ -2549,6 +2550,16 @@ dependencies = [
  "i-slint-core",
  "i-slint-core-macros",
  "i-slint-renderer-femtovg",
+]
+
+[[package]]
+name = "i-slint-backend-testing"
+version = "1.15.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "06160d7126504d15969a6f286ac9de32e0de3cd62e4c9e7204c121dd332855b4"
+dependencies = [
+ "i-slint-core",
+ "vtable",
 ]
 
 [[package]]
