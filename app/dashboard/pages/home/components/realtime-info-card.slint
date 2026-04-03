@@ -1,0 +1,84 @@
+import { UCard, UText, UTitle } from "@sleek-ui/widgets.slint";
+import { UAppTheme } from "@sleek-ui/app-theme.slint";
+import { HomeRealtimeFieldItem } from "../models.slint";
+import { RealtimeFieldRow } from "realtime-field-row.slint";
+
+export component RealtimeInfoCard inherits UCard {
+    in property <[HomeRealtimeFieldItem]> realtime_fields: [];
+    in property <string> gross_weight: "0";
+    in property <string> tare_weight: "0";
+    in property <string> net_weight: "0";
+
+    VerticalLayout {
+        padding: 20px;
+        spacing: 16px;
+
+        VerticalLayout {
+            spacing: 6px;
+
+            UTitle {
+                text: "称重信息";
+                level: 5;
+            }
+
+            UText {
+                text: "展示最新一条实时称重记录。";
+                color: UAppTheme.text-secondary;
+                wrap: word-wrap;
+            }
+        }
+
+        HorizontalLayout {
+            spacing: 18px;
+
+            Rectangle {
+                horizontal-stretch: 3;
+                vertical-stretch: 1;
+                border-radius: 14px;
+                border-width: 1px;
+                border-color: UAppTheme.border-secondary;
+                background: UAppTheme.bg-layout;
+
+                VerticalLayout {
+                    padding: 16px;
+                    spacing: 12px;
+
+                    // field.always_show_when_empty || field.value != "" is normalized before rendering.
+                    for field in root.realtime_fields: RealtimeFieldRow {
+                        label: field.label;
+                        value: field.value;
+                    }
+                }
+            }
+
+            Rectangle {
+                horizontal-stretch: 2;
+                vertical-stretch: 1;
+                border-radius: 14px;
+                border-width: 1px;
+                border-color: UAppTheme.border-secondary;
+                background: UAppTheme.bg-layout;
+
+                VerticalLayout {
+                    padding: 16px;
+                    spacing: 12px;
+
+                    RealtimeFieldRow {
+                        label: "毛重";
+                        value: root.gross_weight;
+                    }
+
+                    RealtimeFieldRow {
+                        label: "皮重";
+                        value: root.tare_weight;
+                    }
+
+                    RealtimeFieldRow {
+                        label: "净重";
+                        value: root.net_weight;
+                    }
+                }
+            }
+        }
+    }
+}

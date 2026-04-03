@@ -1,9 +1,8 @@
-
 #![cfg(any(target_os = "linux", target_os = "windows", target_os = "macos"))]
 
-mod home_state;
+mod pages;
 
-use home_state::{bind_home_callbacks, initialize_home_page};
+use pages::home_state::{bind_home_callbacks, initialize_home_page};
 // use router::init_router;
 
 slint::include_modules!();

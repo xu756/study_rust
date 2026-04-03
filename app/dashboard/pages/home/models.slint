@@ -25,3 +25,10 @@ export struct HomeLogItem {
     timestamp: string,
     message: string,
 }
+
+// 首页实时数据字段，后端按顺序下发 label/value 列表。
+export struct HomeRealtimeFieldItem {
+    label: string,
+    value: string,
+    always_show_when_empty: bool,
+}

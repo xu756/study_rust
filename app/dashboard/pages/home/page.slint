@@ -2,9 +2,14 @@ import {
     LogCard,
     PanelPlaceholderCard,
     ProcessStepCard,
+    RealtimeInfoCard,
     WeightStatusCard,
 } from "components/page.slint";
-import { HomeDeviceStatusItem, HomeLogItem } from "models.slint";
+import {
+    HomeDeviceStatusItem,
+    HomeLogItem,
+    HomeRealtimeFieldItem,
+} from "models.slint";
 
 export component HomePage inherits Rectangle {
     in property <string> weight_value: "0";
@@ -12,6 +17,10 @@ export component HomePage inherits Rectangle {
     in property <string> weight_unit: "KG";
     in property <[HomeDeviceStatusItem]> device_statuses: [];
     in property <[HomeLogItem]> log_items: [];
+    in property <[HomeRealtimeFieldItem]> realtime_fields: [];
+    in property <string> gross_weight: "0";
+    in property <string> tare_weight: "0";
+    in property <string> net_weight: "0";
     in property <[string]> process_step_labels: [];
     in property <int> current_step_index: 0;
 
@@ -66,14 +75,15 @@ export component HomePage inherits Rectangle {
         current_step_index: root.current_step_index;
     }
 
-    PanelPlaceholderCard {
+    RealtimeInfoCard {
         x: root.page_padding;
         y: root.bottom_row_y;
         width: root.bottom_left_width;
         height: root.bottom_card_height;
-        title: "实时数据区域";
-        subtitle: "后续在这里接称重信息、业务表单和实时数据面板。";
-        badge_text: "左侧主区";
+        realtime_fields: root.realtime_fields;
+        gross_weight: root.gross_weight;
+        tare_weight: root.tare_weight;
+        net_weight: root.net_weight;
     }
 
     PanelPlaceholderCard {

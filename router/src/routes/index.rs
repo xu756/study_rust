@@ -1,5 +1,5 @@
 use axum::extract::rejection::JsonRejection;
-use axum::routing::{get};
+use axum::routing::get;
 use axum::{Json, Router};
 use common::result::{param_error, success};
 use serde::{Deserialize, Serialize};

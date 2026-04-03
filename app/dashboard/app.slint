@@ -5,6 +5,7 @@ import {
     HomeDeviceStatusItem,
     HomeLogItem,
     HomeLogLevel,
+    HomeRealtimeFieldItem,
 } from "pages/home/models.slint";
 import "../static/DingTalk-JinBuTi.ttf";
 
@@ -39,6 +40,10 @@ export component App inherits Window {
             message: "当前错误日志仅用于演示颜色效果，未接入真实异常流。",
         },
     ];
+    in-out property <[HomeRealtimeFieldItem]> realtime_fields: [];
+    in-out property <string> gross_weight: "0";
+    in-out property <string> tare_weight: "0";
+    in-out property <string> net_weight: "0";
     in-out property <[string]> process_step_labels: [
         "实时上磅",
         "识别车牌",
@@ -65,6 +70,10 @@ export component App inherits Window {
         weight_unit <=> root.weight_unit;
         device_statuses <=> root.device_statuses;
         log_items <=> root.log_items;
+        realtime_fields <=> root.realtime_fields;
+        gross_weight <=> root.gross_weight;
+        tare_weight <=> root.tare_weight;
+        net_weight <=> root.net_weight;
         process_step_labels <=> root.process_step_labels;
         current_step_index <=> root.current_step_index;
 
