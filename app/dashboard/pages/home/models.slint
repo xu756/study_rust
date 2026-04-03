@@ -32,3 +32,55 @@ export struct HomeRealtimeFieldItem {
     value: string,
     always_show_when_empty: bool,
 }
+
+// 首页默认展示数据。
+// 这份数据同时给运行时首屏和 slint-preview 使用，避免 Rust 和 Slint 各维护一套初始值。
+export global HomePageDefaults {
+    out property <string> weight_value: "3";
+    out property <string> weight_unit_label: "单位";
+    out property <string> weight_unit: "KG";
+    out property <[HomeDeviceStatusItem]> device_statuses: [
+        { label: "连接", indicator_color: HomeDeviceStatusColor.success },
+        { label: "通讯", indicator_color: HomeDeviceStatusColor.warning },
+        { label: "稳定", indicator_color: HomeDeviceStatusColor.danger },
+    ];
+    out property <[HomeLogItem]> log_items: [
+        {
+            level: HomeLogLevel.warning,
+            timestamp: "2026-04-03 09:20:12",
+            message: "地磅首页已切换到新的布局骨架，等待后端日志接入。",
+        },
+        {
+            level: HomeLogLevel.success,
+            timestamp: "2026-04-03 09:20:36",
+            message: "设备状态卡片初始化完成，当前使用前端预置数据。",
+        },
+        {
+            level: HomeLogLevel.info,
+            timestamp: "2026-04-03 09:21:08",
+            message: "监控区域与实时数据区域暂时保留占位，后续再接业务模块。",
+        },
+        {
+            level: HomeLogLevel.error,
+            timestamp: "2026-04-03 09:21:40",
+            message: "当前错误日志仅用于演示颜色效果，未接入真实异常流。",
+        },
+    ];
+    out property <[HomeRealtimeFieldItem]> realtime_fields: [
+        { label: "车牌号", value: "苏D66278", always_show_when_empty: true },
+        { label: "货物名称", value: "混凝土", always_show_when_empty: true },
+        { label: "收货单位", value: "江苏海邦建设", always_show_when_empty: true },
+        { label: "过磅单位", value: "海邦地磅一号", always_show_when_empty: false },
+        { label: "时间", value: "2026-04-03 09:21:40", always_show_when_empty: true },
+    ];
+    out property <string> gross_weight: "0";
+    out property <string> tare_weight: "0";
+    out property <string> net_weight: "0";
+    out property <[string]> process_step_labels: [
+        "实时上磅",
+        "识别车牌",
+        "称量中",
+        "完成下磅",
+    ];
+    out property <int> current_step_index: 1;
+}

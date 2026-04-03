@@ -8,21 +8,22 @@ import {
 import {
     HomeDeviceStatusItem,
     HomeLogItem,
+    HomePageDefaults,
     HomeRealtimeFieldItem,
 } from "models.slint";
 
 export component HomePage inherits Rectangle {
-    in property <string> weight_value: "0";
-    in property <string> weight_unit_label: "单位";
-    in property <string> weight_unit: "KG";
-    in property <[HomeDeviceStatusItem]> device_statuses: [];
-    in property <[HomeLogItem]> log_items: [];
-    in property <[HomeRealtimeFieldItem]> realtime_fields: [];
-    in property <string> gross_weight: "0";
-    in property <string> tare_weight: "0";
-    in property <string> net_weight: "0";
-    in property <[string]> process_step_labels: [];
-    in property <int> current_step_index: 0;
+    in property <string> weight_value: HomePageDefaults.weight_value;
+    in property <string> weight_unit_label: HomePageDefaults.weight_unit_label;
+    in property <string> weight_unit: HomePageDefaults.weight_unit;
+    in property <[HomeDeviceStatusItem]> device_statuses: HomePageDefaults.device_statuses;
+    in property <[HomeLogItem]> log_items: HomePageDefaults.log_items;
+    in property <[HomeRealtimeFieldItem]> realtime_fields: HomePageDefaults.realtime_fields;
+    in property <string> gross_weight: HomePageDefaults.gross_weight;
+    in property <string> tare_weight: HomePageDefaults.tare_weight;
+    in property <string> net_weight: HomePageDefaults.net_weight;
+    in property <[string]> process_step_labels: HomePageDefaults.process_step_labels;
+    in property <int> current_step_index: HomePageDefaults.current_step_index;
 
     callback request_refresh_home_data();
     callback request_select_process_step(int);

@@ -3,6 +3,7 @@ import { HomePage } from "pages/home/page.slint";
 import {
     HomeDeviceStatusColor,
     HomeDeviceStatusItem,
+    HomePageDefaults,
     HomeLogItem,
     HomeLogLevel,
     HomeRealtimeFieldItem,
@@ -10,47 +11,17 @@ import {
 import "../static/DingTalk-JinBuTi.ttf";
 
 export component App inherits Window {
-    in-out property <string> weight_value: "3";
-    in-out property <string> weight_unit_label: "单位";
-    in-out property <string> weight_unit: "KG";
-    in-out property <[HomeDeviceStatusItem]> device_statuses: [
-        { label: "连接", indicator_color: HomeDeviceStatusColor.success },
-        { label: "通讯", indicator_color: HomeDeviceStatusColor.warning },
-        { label: "稳定", indicator_color: HomeDeviceStatusColor.danger },
-    ];
-    in-out property <[HomeLogItem]> log_items: [
-        {
-            level: HomeLogLevel.warning,
-            timestamp: "2026-04-03 09:20:12",
-            message: "地磅首页已切换到新的布局骨架，等待后端日志接入。",
-        },
-        {
-            level: HomeLogLevel.success,
-            timestamp: "2026-04-03 09:20:36",
-            message: "设备状态卡片初始化完成，当前使用前端预置数据。",
-        },
-        {
-            level: HomeLogLevel.info,
-            timestamp: "2026-04-03 09:21:08",
-            message: "监控区域与实时数据区域暂时保留占位，后续再接业务模块。",
-        },
-        {
-            level: HomeLogLevel.error,
-            timestamp: "2026-04-03 09:21:40",
-            message: "当前错误日志仅用于演示颜色效果，未接入真实异常流。",
-        },
-    ];
-    in-out property <[HomeRealtimeFieldItem]> realtime_fields: [];
-    in-out property <string> gross_weight: "0";
-    in-out property <string> tare_weight: "0";
-    in-out property <string> net_weight: "0";
-    in-out property <[string]> process_step_labels: [
-        "实时上磅",
-        "识别车牌",
-        "称量中",
-        "完成下磅",
-    ];
-    in-out property <int> current_step_index: 1;
+    in-out property <string> weight_value: HomePageDefaults.weight_value;
+    in-out property <string> weight_unit_label: HomePageDefaults.weight_unit_label;
+    in-out property <string> weight_unit: HomePageDefaults.weight_unit;
+    in-out property <[HomeDeviceStatusItem]> device_statuses: HomePageDefaults.device_statuses;
+    in-out property <[HomeLogItem]> log_items: HomePageDefaults.log_items;
+    in-out property <[HomeRealtimeFieldItem]> realtime_fields: HomePageDefaults.realtime_fields;
+    in-out property <string> gross_weight: HomePageDefaults.gross_weight;
+    in-out property <string> tare_weight: HomePageDefaults.tare_weight;
+    in-out property <string> net_weight: HomePageDefaults.net_weight;
+    in-out property <[string]> process_step_labels: HomePageDefaults.process_step_labels;
+    in-out property <int> current_step_index: HomePageDefaults.current_step_index;
 
     callback request_refresh_home_data();
     callback request_select_process_step(int);

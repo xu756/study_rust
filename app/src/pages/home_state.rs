@@ -3,6 +3,10 @@
 //! 后端接入时可以只关注两件事：
 //! 1. 实现 [`HomePageAdapter`]，从串口、TCP、HTTP 或数据库读取首页数据。
 //! 2. 在拿到最新业务数据后构造 [`HomePageState`]，再交给 `apply_home_page_state` 渲染到界面。
+#![allow(dead_code)]
+// 这个模块目前既承担运行时代码，也承担后续后端接入边界定义。
+// 在真实硬件/服务尚未接入前，部分类型和函数只会被测试或后续模块调用，
+// 因此先允许 dead_code，避免日常检查被大量预留接口警告干扰。
 
 use std::rc::Rc;
 
@@ -94,105 +98,11 @@ pub trait HomePageAdapter {
     fn switch_monitor_panel(&self, _panel_index: i32) {}
 }
 
-/// 默认演示数据提供者。
-#[derive(Debug, Default, Clone, Copy)]
-pub struct DemoHomePageAdapter;
-
-impl HomePageAdapter for DemoHomePageAdapter {
-    fn load_home_state(&self) -> HomePageState {
-        build_home_bootstrap_state()
-    }
-}
-
-/// 构造首页初始展示数据。
+/// 初始化首页。
 ///
-/// 当后端尚未接入时，界面会先使用这里的演示数据完成渲染。
-pub fn build_home_bootstrap_state() -> HomePageState {
-    HomePageState {
-        weight: WeightSnapshot {
-            value: "0".to_string(),
-            unit_label: "单位".to_string(),
-            unit: "KG".to_string(),
-        },
-        current_step_index: 0,
-        device_statuses: vec![
-            DeviceStatusSnapshot {
-                label: "连接".to_string(),
-                indicator_color: DeviceStatusColorSnapshot::Success,
-            },
-            DeviceStatusSnapshot {
-                label: "通讯".to_string(),
-                indicator_color: DeviceStatusColorSnapshot::Warning,
-            },
-            DeviceStatusSnapshot {
-                label: "稳定".to_string(),
-                indicator_color: DeviceStatusColorSnapshot::Danger,
-            },
-        ],
-        process_step_labels: vec![
-            "实时上磅".to_string(),
-            "识别车牌".to_string(),
-            "称量中".to_string(),
-            "完成下磅".to_string(),
-        ],
-        log_items: vec![
-            LogItemSnapshot {
-                level: LogLevelSnapshot::Warning,
-                timestamp: "2026-04-03 09:20:12".to_string(),
-                message: "地磅首页已切换到新的布局骨架，等待后端日志接入。".to_string(),
-            },
-            LogItemSnapshot {
-                level: LogLevelSnapshot::Success,
-                timestamp: "2026-04-03 09:20:36".to_string(),
-                message: "设备状态卡片初始化完成，当前使用前端预置数据。".to_string(),
-            },
-            LogItemSnapshot {
-                level: LogLevelSnapshot::Info,
-                timestamp: "2026-04-03 09:21:08".to_string(),
-                message: "监控区域与实时数据区域暂时保留占位，后续再接业务模块。".to_string(),
-            },
-            LogItemSnapshot {
-                level: LogLevelSnapshot::Error,
-                timestamp: "2026-04-03 09:21:40".to_string(),
-                message: "当前错误日志仅用于演示颜色效果，未接入真实异常流。".to_string(),
-            },
-        ],
-        realtime_fields: vec![
-            RealtimeFieldSnapshot {
-                label: "车牌号".to_string(),
-                value: "苏D66278".to_string(),
-                always_show_when_empty: true,
-            },
-            RealtimeFieldSnapshot {
-                label: "货物名称".to_string(),
-                value: "混凝土".to_string(),
-                always_show_when_empty: true,
-            },
-            RealtimeFieldSnapshot {
-                label: "收货单位".to_string(),
-                value: "江苏海邦建设".to_string(),
-                always_show_when_empty: true,
-            },
-            RealtimeFieldSnapshot {
-                label: "过磅单位".to_string(),
-                value: "海邦地磅一号".to_string(),
-                always_show_when_empty: false,
-            },
-            RealtimeFieldSnapshot {
-                label: "时间".to_string(),
-                value: "2026-04-03 09:21:40".to_string(),
-                always_show_when_empty: true,
-            },
-        ],
-        gross_weight: "0".to_string(),
-        tare_weight: "0".to_string(),
-        net_weight: "0".to_string(),
-    }
-}
-
-/// 使用默认演示适配器初始化首页。
-pub fn initialize_home_page(app: &App) {
-    initialize_home_page_with(app, &DemoHomePageAdapter);
+/// 首屏默认展示数据统一写在 Slint 中，这里保留这个入口，方便后面扩展
+/// 页面级初始化逻辑，但不会再用 Rust 覆盖 Slint 默认值。
+pub fn initialize_home_page(_app: &App) {
 }
 
 /// 使用自定义适配器初始化首页。
@@ -203,9 +113,13 @@ pub fn initialize_home_page_with(app: &App, adapter: &dyn HomePageAdapter) {
     apply_home_page_state(app, &bootstrap_state);
 }
 
-/// 绑定默认演示回调。
+/// 绑定默认空回调。
+///
+/// 当后端尚未接入时，界面会保留 Slint 中的默认展示数据。
 pub fn bind_home_callbacks(app: &App) {
-    bind_home_callbacks_with(app, Rc::new(DemoHomePageAdapter));
+    app.on_request_refresh_home_data(|| {});
+    app.on_request_select_process_step(|_| {});
+    app.on_request_switch_monitor_panel(|_| {});
 }
 
 /// 绑定首页 UI 回调到适配器。

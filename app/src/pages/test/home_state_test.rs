@@ -113,20 +113,18 @@ impl HomePageAdapter for MockHomePageAdapter {
 }
 
 #[test]
-fn build_home_bootstrap_state_uses_weighing_defaults() {
-    let state = build_home_bootstrap_state();
+fn initialize_home_page_preserves_slint_defaults() {
+    ensure_slint_test_backend();
+    let app = App::new().expect("app should construct in tests");
 
-    assert_eq!(state.weight.value, "0");
-    assert_eq!(state.weight.unit_label, "单位");
-    assert_eq!(state.weight.unit, "KG");
-    assert_eq!(state.current_step_index, 0);
-    assert_eq!(state.device_statuses.len(), 3);
-    assert_eq!(
-        state.device_statuses[0].indicator_color,
-        DeviceStatusColorSnapshot::Success
-    );
-    assert_eq!(state.process_step_labels.len(), 4);
-    assert!(!state.log_items.is_empty());
+    assert_eq!(app.get_weight_value().to_string(), "3");
+    assert_eq!(app.get_log_items().row_count(), 4);
+
+    initialize_home_page(&app);
+
+    assert_eq!(app.get_weight_value().to_string(), "3");
+    assert_eq!(app.get_log_items().row_count(), 4);
+    assert_eq!(app.get_process_step_labels().row_count(), 4);
 }
 
 #[test]
@@ -167,6 +165,10 @@ fn home_state_exposes_adapter_contract_for_future_device_integration() {
         production_source.contains("pub fn apply_home_page_state"),
         "home_state.rs should expose apply_home_page_state so backend updates can drive the UI directly"
     );
+    assert!(
+        !production_source.contains("build_home_bootstrap_state"),
+        "home_state.rs should no longer define demo bootstrap values in Rust once defaults move to Slint"
+    );
 }
 
 #[test]
@@ -178,7 +180,7 @@ fn home_state_tests_are_split_into_separate_module_file() {
     assert!(pages_mod.contains("#[cfg(test)]"));
     assert!(pages_mod.contains("mod test;"));
     assert!(test_mod.contains("mod home_state_test;"));
-    assert!(tests.contains("fn build_home_bootstrap_state_uses_weighing_defaults()"));
+    assert!(tests.contains("fn initialize_home_page_preserves_slint_defaults()"));
 }
 
 #[test]
@@ -216,14 +218,20 @@ fn realtime_panel_slint_contracts_are_declared() {
 }
 
 #[test]
-fn realtime_panel_bootstrap_state_includes_defaults() {
-    let state = build_home_bootstrap_state();
+fn slint_defaults_are_declared_for_runtime_and_preview() {
+    let models = read_project_file("dashboard/pages/home/models.slint");
+    let app = read_project_file("dashboard/app.slint");
+    let page = read_project_file("dashboard/pages/home/page.slint");
 
-    assert!(!state.realtime_fields.is_empty());
-    assert_eq!(state.realtime_fields[0].label, "车牌号");
-    assert_eq!(state.gross_weight, "0");
-    assert_eq!(state.tare_weight, "0");
-    assert_eq!(state.net_weight, "0");
+    assert!(models.contains("export global HomePageDefaults"));
+    assert!(models.contains("out property <string> weight_value: \"3\""));
+    assert!(models.contains("out property <[HomeLogItem]> log_items: ["));
+    assert!(models.contains("out property <[HomeRealtimeFieldItem]> realtime_fields: ["));
+
+    assert!(app.contains("HomePageDefaults.weight_value"));
+    assert!(app.contains("HomePageDefaults.log_items"));
+    assert!(page.contains("HomePageDefaults.weight_value"));
+    assert!(page.contains("HomePageDefaults.log_items"));
 }
 
 #[test]
