@@ -3,6 +3,7 @@
 mod pages;
 
 use pages::home_state::{bind_home_callbacks, initialize_home_page};
+use slint::ComponentHandle;
 use router::init_router;
 
 slint::include_modules!();
@@ -24,6 +25,15 @@ fn main() -> Result<(), slint::PlatformError> {
 
     // 3) UI 必须在主线程跑（run 会阻塞）
     let main_window = App::new()?;
+    let app_weak = main_window.as_weak();
+    main_window.on_request_close_app(move || {
+        if let Some(app) = app_weak.upgrade() {
+            if let Err(err) = app.hide() {
+                eprintln!("close app failed: {err}");
+            }
+        }
+    });
+
     // 初始化首页默认展示数据，并绑定后续接后端时要用到的空回调。
     initialize_home_page(&main_window);
     bind_home_callbacks(&main_window);

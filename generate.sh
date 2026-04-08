@@ -1,1 +1,0 @@
-sea-orm-cli generate entity -u sqlite:///Users/xu756/RustroverProjects/study_rust/data.db?mode=rwc -o common/src/entity

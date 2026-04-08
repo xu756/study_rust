@@ -102,8 +102,7 @@ pub trait HomePageAdapter {
 ///
 /// 首屏默认展示数据统一写在 Slint 中，这里保留这个入口，方便后面扩展
 /// 页面级初始化逻辑，但不会再用 Rust 覆盖 Slint 默认值。
-pub fn initialize_home_page(_app: &App) {
-}
+pub fn initialize_home_page(_app: &App) {}
 
 /// 使用自定义适配器初始化首页。
 ///

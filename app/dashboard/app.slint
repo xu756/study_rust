@@ -26,10 +26,14 @@ export component App inherits Window {
     callback request_refresh_home_data();
     callback request_select_process_step(int);
     callback request_switch_monitor_panel(int);
+    callback request_close_app();
 
     preferred-width: 1180px;
     preferred-height: 760px;
+    full-screen: true;
+    no-frame: true;
     title: "称重系统";
+    icon: @image-url("../static/app-icon.svg");
     background: UAppTheme.bg-layout;
     default-font-family: "DingTalk JinBuTi";
 
@@ -58,6 +62,35 @@ export component App inherits Window {
 
         request_switch_monitor_panel(panel_index) => {
             root.request_switch_monitor_panel(panel_index);
+        }
+    }
+
+    Rectangle {
+        width: 15px;
+        height: 15px;
+        x: root.width - self.width - 6px;
+        y: 6px;
+        border-radius: 13px;
+        background: #FF5F57;
+        border-width: 1px;
+        border-color: #E34A43;
+
+        close_touch := TouchArea {
+            mouse-cursor: pointer;
+            clicked => {
+                root.request_close_app();
+            }
+        }
+
+        Text {
+            width: parent.width;
+            height: parent.height;
+            text: "×";
+            horizontal-alignment: center;
+            vertical-alignment: center;
+            font-size: 18px;
+            font-weight: 700;
+            color: close_touch.has-hover ? #151515 : transparent;
         }
     }
 }
