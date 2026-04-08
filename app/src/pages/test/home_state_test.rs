@@ -68,6 +68,10 @@ fn build_test_home_state(weight_value: &str) -> HomePageState {
                 always_show_when_empty: false,
             },
         ],
+        recent_weight_records: vec![
+            "2026-04-03 10:00:08 | 苏D66278 | 混凝土 | 毛重 1280 | 皮重 0 | 净重 1280".to_string(),
+            "2026-04-03 09:58:24 | 苏D66373 | 混凝土 | 毛重 2400 | 皮重 1450 | 净重 950".to_string(),
+        ],
         gross_weight: weight_value.to_string(),
         tare_weight: "".to_string(),
         net_weight: weight_value.to_string(),
@@ -117,12 +121,12 @@ fn initialize_home_page_preserves_slint_defaults() {
     ensure_slint_test_backend();
     let app = App::new().expect("app should construct in tests");
 
-    assert_eq!(app.get_weight_value().to_string(), "3");
+    assert_eq!(app.get_weight_value().to_string(), "866");
     assert_eq!(app.get_log_items().row_count(), 4);
 
     initialize_home_page(&app);
 
-    assert_eq!(app.get_weight_value().to_string(), "3");
+    assert_eq!(app.get_weight_value().to_string(), "866");
     assert_eq!(app.get_log_items().row_count(), 4);
     assert_eq!(app.get_process_step_labels().row_count(), 4);
 }
@@ -207,11 +211,13 @@ fn realtime_panel_slint_contracts_are_declared() {
     assert!(models.contains("always_show_when_empty: bool"));
 
     assert!(app.contains("in-out property <[HomeRealtimeFieldItem]> realtime_fields"));
+    assert!(app.contains("in-out property <[string]> recent_weight_records"));
     assert!(app.contains("in-out property <string> gross_weight"));
     assert!(app.contains("in-out property <string> tare_weight"));
     assert!(app.contains("in-out property <string> net_weight"));
 
     assert!(page.contains("in property <[HomeRealtimeFieldItem]> realtime_fields"));
+    assert!(page.contains("in property <[string]> recent_weight_records"));
     assert!(page.contains("in property <string> gross_weight"));
     assert!(page.contains("in property <string> tare_weight"));
     assert!(page.contains("in property <string> net_weight"));
@@ -224,7 +230,7 @@ fn slint_defaults_are_declared_for_runtime_and_preview() {
     let page = read_project_file("dashboard/pages/home/page.slint");
 
     assert!(models.contains("export global HomePageDefaults"));
-    assert!(models.contains("out property <string> weight_value: \"3\""));
+    assert!(models.contains("out property <string> weight_value: \"866\""));
     assert!(models.contains("out property <[HomeLogItem]> log_items: ["));
     assert!(models.contains("out property <[HomeRealtimeFieldItem]> realtime_fields: ["));
 
@@ -254,6 +260,14 @@ fn realtime_panel_initialize_home_page_with_applies_state() {
     assert_eq!(app.get_gross_weight().to_string(), "1280");
     assert_eq!(app.get_tare_weight().to_string(), "0");
     assert_eq!(app.get_net_weight().to_string(), "1280");
+    assert_eq!(app.get_recent_weight_records().row_count(), 2);
+    assert_eq!(
+        app.get_recent_weight_records()
+            .row_data(0)
+            .expect("first recent record should exist")
+            .to_string(),
+        "2026-04-03 10:00:08 | 苏D66278 | 混凝土 | 毛重 1280 | 皮重 0 | 净重 1280"
+    );
     assert_eq!(app.get_weight_value().to_string(), "1280");
     assert_eq!(app.get_weight_unit_label().to_string(), "单位");
     assert_eq!(app.get_weight_unit().to_string(), "KG");
@@ -289,8 +303,9 @@ fn realtime_panel_info_card_replaces_left_placeholder() {
     let page = read_project_file("dashboard/pages/home/page.slint");
 
     assert!(card.contains("export component RealtimeInfoCard"));
-    assert!(card.contains("text: \"称重信息\""));
+    assert!(card.contains("text: \"最近称重记录\""));
     assert!(card.contains("for field in root.realtime_fields"));
+    assert!(card.contains("for record[index] in root.recent_weight_records"));
     assert!(card.contains("field.always_show_when_empty || field.value != \"\""));
     assert!(card.contains("label: \"毛重\""));
     assert!(card.contains("label: \"皮重\""));

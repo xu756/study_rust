@@ -73,6 +73,12 @@ export global HomePageDefaults {
         { label: "过磅单位", value: "海邦地磅一号", always_show_when_empty: false },
         { label: "时间", value: "2026-04-03 09:21:40", always_show_when_empty: true },
     ];
+    out property <[string]> recent_weight_records: [
+        "2026-04-03 09:21:40 | 苏D66278 | 混凝土 | 毛重 32680 | 皮重 14500 | 净重 18180",
+        "2026-04-03 09:18:14 | 苏DJH926 | 混凝土 | 毛重 32980 | 皮重 0 | 净重 32980",
+        "2026-04-03 09:12:05 | 苏D66373 | 混凝土 | 毛重 43570 | 皮重 14590 | 净重 28980",
+        "2026-04-03 09:06:43 | 苏DJJ227 | 混凝土 | 毛重 40120 | 皮重 14450 | 净重 25670",
+    ];
     out property <string> gross_weight: "0";
     out property <string> tare_weight: "0";
     out property <string> net_weight: "0";

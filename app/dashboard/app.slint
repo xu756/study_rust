@@ -17,6 +17,7 @@ export component App inherits Window {
     in-out property <[HomeDeviceStatusItem]> device_statuses: HomePageDefaults.device_statuses;
     in-out property <[HomeLogItem]> log_items: HomePageDefaults.log_items;
     in-out property <[HomeRealtimeFieldItem]> realtime_fields: HomePageDefaults.realtime_fields;
+    in-out property <[string]> recent_weight_records: HomePageDefaults.recent_weight_records;
     in-out property <string> gross_weight: HomePageDefaults.gross_weight;
     in-out property <string> tare_weight: HomePageDefaults.tare_weight;
     in-out property <string> net_weight: HomePageDefaults.net_weight;
@@ -46,6 +47,7 @@ export component App inherits Window {
         device_statuses <=> root.device_statuses;
         log_items <=> root.log_items;
         realtime_fields <=> root.realtime_fields;
+        recent_weight_records <=> root.recent_weight_records;
         gross_weight <=> root.gross_weight;
         tare_weight <=> root.tare_weight;
         net_weight <=> root.net_weight;

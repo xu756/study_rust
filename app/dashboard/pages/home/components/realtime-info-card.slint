@@ -2,9 +2,11 @@ import { UCard, UText, UTitle } from "@sleek-ui/widgets.slint";
 import { UAppTheme } from "@sleek-ui/app-theme.slint";
 import { HomeRealtimeFieldItem } from "../models.slint";
 import { RealtimeFieldRow } from "realtime-field-row.slint";
+import { StandardTableView } from "std-widgets.slint";
 
 export component RealtimeInfoCard inherits UCard {
     in property <[HomeRealtimeFieldItem]> realtime_fields: [];
+    in property <[string]> recent_weight_records: [];
     in property <string> gross_weight: "0";
     in property <string> tare_weight: "0";
     in property <string> net_weight: "0";
@@ -64,17 +66,65 @@ export component RealtimeInfoCard inherits UCard {
         }
 
         VerticalLayout {
-            spacing: 6px;
+            spacing: 8px;
 
             UTitle {
-                text: "称重信息";
+                text: "最近称重记录";
                 level: 5;
             }
 
-            UText {
-                text: "展示最新一条实时称重记录。";
-                color: UAppTheme.text-secondary;
-                wrap: word-wrap;
+            Rectangle {
+                horizontal-stretch: 1;
+                min-height: 180px;
+                border-radius: 12px;
+                border-width: 1px;
+                border-color: UAppTheme.border;
+                background: UAppTheme.bg-container;
+                clip: true;
+
+                Flickable {
+                    width: parent.width;
+                    height: parent.height;
+                    interactive: true;
+                    viewport-x: 0px;
+                    viewport-width: self.width;
+                    viewport-height: max(self.height, rows.preferred-height);
+
+                    rows := VerticalLayout {
+                        width: parent.width;
+                        spacing: 0px;
+
+                        Rectangle {
+                            width: parent.width;
+                            height: 34px;
+                            background: UAppTheme.bg-layout;
+
+                            UText {
+                                x: 12px;
+                                y: 9px;
+                                width: parent.width - 24px;
+                                text: "时间 | 车牌/卡号 | 货物 | 毛/皮/净重";
+                                font-size: 12px;
+                                color: UAppTheme.text-secondary;
+                            }
+                        }
+
+                        for record[index] in root.recent_weight_records: Rectangle {
+                            width: parent.width;
+                            min-height: 36px;
+                            background: Math.mod(index, 2) == 0 ? UAppTheme.bg-container : UAppTheme.bg-layout;
+
+                            UText {
+                                x: 12px;
+                                y: 10px;
+                                width: parent.width - 24px;
+                                text: record;
+                                font-size: 13px;
+                                color: UAppTheme.text;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

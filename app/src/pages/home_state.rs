@@ -77,6 +77,8 @@ pub struct HomePageState {
     pub process_step_labels: Vec<String>,
     pub log_items: Vec<LogItemSnapshot>,
     pub realtime_fields: Vec<RealtimeFieldSnapshot>,
+    /// 最近几条称重记录，按时间倒序。
+    pub recent_weight_records: Vec<String>,
     pub gross_weight: String,
     pub tare_weight: String,
     pub net_weight: String,
@@ -204,6 +206,15 @@ pub fn apply_home_page_state(app: &App, state: &HomePageState) {
         })
         .collect::<Vec<_>>();
     app.set_realtime_fields(ModelRc::new(VecModel::from(realtime_fields)));
+
+    // 最近称重记录区（单列文本表格）。
+    let recent_weight_records = state
+        .recent_weight_records
+        .iter()
+        .cloned()
+        .map(Into::into)
+        .collect::<Vec<_>>();
+    app.set_recent_weight_records(ModelRc::new(VecModel::from(recent_weight_records)));
 
     // 固定重量区。空字符串统一按 0 处理，便于界面稳定显示。
     app.set_gross_weight(normalize_weight(&state.gross_weight));
