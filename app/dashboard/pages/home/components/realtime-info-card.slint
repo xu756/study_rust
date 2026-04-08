@@ -13,30 +13,12 @@ export component RealtimeInfoCard inherits UCard {
         padding: 20px;
         spacing: 16px;
 
-        VerticalLayout {
-            spacing: 6px;
-
-            UTitle {
-                text: "称重信息";
-                level: 5;
-            }
-
-            UText {
-                text: "展示最新一条实时称重记录。";
-                color: UAppTheme.text-secondary;
-                wrap: word-wrap;
-            }
-        }
-
         HorizontalLayout {
-
             Rectangle {
                 horizontal-stretch: 3;
                 vertical-stretch: 1;
                 border-top-left-radius: 14px;
                 border-bottom-left-radius: 14px;
-                border-width: 1px;
-                border-color: UAppTheme.border-secondary;
                 background: UAppTheme.bg-layout;
 
                 VerticalLayout {
@@ -56,8 +38,7 @@ export component RealtimeInfoCard inherits UCard {
                 vertical-stretch: 1;
                 border-top-right-radius: 14px;
                 border-bottom-right-radius: 14px;
-                border-width: 1px;
-                border-color: UAppTheme.border-secondary;
+
                 background: UAppTheme.bg-layout;
 
                 VerticalLayout {
@@ -79,6 +60,21 @@ export component RealtimeInfoCard inherits UCard {
                         value: root.net_weight;
                     }
                 }
+            }
+        }
+
+        VerticalLayout {
+            spacing: 6px;
+
+            UTitle {
+                text: "称重信息";
+                level: 5;
+            }
+
+            UText {
+                text: "展示最新一条实时称重记录。";
+                color: UAppTheme.text-secondary;
+                wrap: word-wrap;
             }
         }
     }
