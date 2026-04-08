@@ -13,6 +13,7 @@
     "rust-analyzer.cargo.buildScripts.enable": true,
     "rust-analyzer.procMacro.enable": true,
     "slint.libraryPaths": {
-        "sleek-ui": "./app/sleek-ui"
+        "sleek-ui": "./app/sleek-ui",
+        "surrealism-ui": "./app/surrealism-ui"
     }
 }

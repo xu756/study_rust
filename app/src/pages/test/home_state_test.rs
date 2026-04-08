@@ -305,7 +305,9 @@ fn realtime_panel_info_card_replaces_left_placeholder() {
     assert!(card.contains("export component RealtimeInfoCard"));
     assert!(card.contains("text: \"最近称重记录\""));
     assert!(card.contains("for field in root.realtime_fields"));
-    assert!(card.contains("for record[index] in root.recent_weight_records"));
+    assert!(card.contains("history_list := Rectangle"));
+    assert!(card.contains("background: UAppTheme.bg-layout"));
+    assert!(card.contains("for record in root.recent_weight_records"));
     assert!(card.contains("field.always_show_when_empty || field.value != \"\""));
     assert!(card.contains("label: \"毛重\""));
     assert!(card.contains("label: \"皮重\""));

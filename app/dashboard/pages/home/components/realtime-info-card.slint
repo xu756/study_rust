@@ -3,6 +3,34 @@ import { UAppTheme } from "@sleek-ui/app-theme.slint";
 import { HomeRealtimeFieldItem } from "../models.slint";
 import { RealtimeFieldRow } from "realtime-field-row.slint";
 import { StandardTableView } from "std-widgets.slint";
+import { STag } from "@surrealism-ui/index.slint";
+import { Themes } from  "@surrealism-ui/use/index.slint";
+
+import {
+    STable,
+    STableColumn,
+    SCard,
+    STableColumnItem,
+    STableColumnFlex,
+    SButton,
+} from "@surrealism-ui/index.slint";
+import {
+    Themes,
+    PaddingType,
+    ShadowType,
+    BorderType,
+    PaddingProps,
+    BorderProps,
+    ShadowProps,
+    UseSurrealismFn,
+} from "@surrealism-ui/use/index.slint";
+import {
+    ROOT-STYLES,
+    DefaultSCardProps,
+    ComponentSchema,
+} from "@surrealism-ui/themes/index.slint";
+import { ScrollView } from "std-widgets.slint";
+import { STag } from "@surrealism-ui/src/tag/index.slint";
 
 export component RealtimeInfoCard inherits UCard {
     in property <[HomeRealtimeFieldItem]> realtime_fields: [];
@@ -73,54 +101,98 @@ export component RealtimeInfoCard inherits UCard {
                 level: 5;
             }
 
-            Rectangle {
-                horizontal-stretch: 1;
-                min-height: 180px;
-                border-radius: 12px;
-                border-width: 1px;
-                border-color: UAppTheme.border;
-                background: UAppTheme.bg-container;
-                clip: true;
+            STable {
+                theme: Dark;
+                width: 90%;
 
-                Flickable {
-                    width: parent.width;
-                    height: parent.height;
-                    interactive: true;
-                    viewport-x: 0px;
-                    viewport-width: self.width;
-                    viewport-height: max(self.height, rows.preferred-height);
+                column-themes: [Themes.Primary, Themes.Dark, Themes.Error, Themes.Dark];
+                viewport-height: col1.height;
+                alignment: center;
+                columns: [
+                    { label:"序号", value:"$index" },
+                    { label:"username", value:"name" },
+                    { label:"age", value:"age" },
+                    { label:"operate", value:"opt" },
+                ];
+                clicked(index, item) => {
+                    debug(index);
+                    debug(item);
+                }
 
-                    rows := VerticalLayout {
-                        width: parent.width;
-                        spacing: 0px;
+                col1 := STableColumn {
+                    alignment: left;
+                    datas: [
+                        "1",
+                        "2",
+                        "3",
+                        "3",
+                        "3",
+                    ];
+                    width: parent.get-column-width(parent.width, 0);
+                }
 
+                STableColumn {
+                    index: 1;
+                    width: parent.get-column-width(parent.width, 1);
+                    datas: [
+                        "Matt",
+                        "John",
+                        "Gary",
+                        "Harry",
+                        "Mary",
+                    ];
+                    clicked(col-index, index, value) => {
+                        debug(col-index);
+                        debug(index);
+                        debug(value);
+                    }
+                }
+
+                STableColumnFlex {
+                    index: 2;
+                    theme: Light;
+                    width: parent.get-column-width(parent.width, 2);
+                    height: self.count-column-height(5);
+
+                    for item[index] in ["16", "22", "31", "9", "18"]: STableColumnItem {
+                        theme: parent.theme;
+                        height: parent.height / 5;
+                        callback row-click(string);
+                        clicked => {
+                            self.row-click(item);
+                        }
+                        row-click(row-item) => {
+                            debug(row-item);
+                        }
                         Rectangle {
-                            width: parent.width;
-                            height: 34px;
-                            background: UAppTheme.bg-layout;
-
-                            UText {
-                                x: 12px;
-                                y: 9px;
-                                width: parent.width - 24px;
-                                text: "时间 | 车牌/卡号 | 货物 | 毛/皮/净重";
-                                font-size: 12px;
-                                color: UAppTheme.text-secondary;
+                            STag {
+                                text: @tr("Tag-{}",item);
+                                theme: Primary;
                             }
                         }
+                    }
+                }
 
-                        for record[index] in root.recent_weight_records: Rectangle {
-                            width: parent.width;
-                            min-height: 36px;
-                            background: Math.mod(index, 2) == 0 ? UAppTheme.bg-container : UAppTheme.bg-layout;
-
-                            UText {
-                                x: 12px;
-                                y: 10px;
-                                width: parent.width - 24px;
-                                text: record;
-                                font-size: 13px;
-                                color: UAppTheme.text;
+                STableColumnFlex {
+                    index: 3;
+                    theme: Dark;
+                    width: parent.get-column-width(parent.width, 3);
+                    height: self.count-column-height(5);
+                    for item[index] in ["1", "2", "3"]: STableColumnItem {
+                        height: parent.height / 5;
+                        SButton {
+                            text: @tr("operate-{}",item);
+                            padding-type: PaddingType.Tag;
+                        }
+                    }
+                    for item[index] in ["change", "delete"]: STableColumnItem {
+                        height: parent.height / 5;
+                        SButton {
+                            theme: Warning;
+                            text: item;
+                            padding-type: PaddingType.Tag;
+                            clicked => {
+                                debug("I am click!");
                             }
                         }
                     }
